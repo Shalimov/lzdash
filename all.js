@@ -29,7 +29,6 @@ const INFERENCE = {
 const eof = Object.freeze(() => { })
 const isEof = value => value === eof
 const isNotEof = value => value !== eof
-import { eof } from './helpers'
 
 const infer = type => fn => {
   fn.__infer__ = type
@@ -88,27 +87,43 @@ const takeWhile = predicate => arg => inferArray(() => {
   return predicate(value) === true ? value : eof
 })
 
-const drop = count => arg => inferArray(() => {
-  for (let i = 0; i < count; i += 1) { arg() }
-  const value = arg()
-  return value
-})
+const drop = count => arg => {
+  let dropIt = false
 
-const dropWhile = predicate => arg => inferArray(() => {
-  let value = null
-
-  do {
-    value = arg()
-    const continueDropping = predicate(value)
-    if (continueDropping && isNotEof(value)) {
-      continue
-    } else if (continueDropping) {
-      break
+  return inferArray(() => {
+    if (!dropIt) {
+      for (let i = 0; i < count; i += 1) { arg() }
+      dropIt = true
     }
-  } while (isNotEof(value))
 
-  return value
-})
+    const value = arg()
+    return value
+  })
+}
+
+const dropWhile = predicate => arg => {
+  let dropIt = true
+
+  return inferArray(() => {
+    let value = null
+
+    if (dropIt) {
+      do {
+        value = arg()
+        const continueDropping = predicate(value)
+        if (continueDropping && isNotEof(value)) {
+          continue
+        } else if (continueDropping) {
+          break
+        }
+      } while (isNotEof(value))
+
+      dropIt = false
+    }
+
+    return value
+  })
+}
 
 const chunk = size => arg => inferArray(() => {
   const result = []
@@ -122,9 +137,8 @@ const chunk = size => arg => inferArray(() => {
     result.push(value)
   }
 
-  return result
+  return result.length === 0 ? eof : result
 })
-
 
 const map = transform => arg => inferArray(() => {
   const value = arg()
@@ -144,7 +158,6 @@ const filter = predicate => arg => inferArray(() => {
 
   return value
 })
-
 
 const fromCollection = (collection) => {
   let index = 0
@@ -180,3 +193,19 @@ const lazy = (...funcs) => {
     return func.__infer__(func)
   }
 }
+
+/*
+const lz = lazy(
+  filter(v => v % 2 === 0),
+  take(12),
+  map(v => ({ value: v })),
+  uniqBy(v => v.value),
+  chunk(2)
+)
+
+const r = lz([
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+])
+console.log(r)
+*/
