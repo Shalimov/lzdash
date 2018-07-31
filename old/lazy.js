@@ -28,7 +28,6 @@ const lazy = (...funcs) => {
   }
 }
 
-
 export {
   lazy,
   map,
