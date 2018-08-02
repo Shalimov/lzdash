@@ -11,7 +11,7 @@ const compileSource = () => browserify({
 }).transform('babelify', { presets: ['env'] })
 	.bundle()
 	.on('error', function (error) {
-		process.stderr.write(JSON.stringify(error))
+		process.stderr.write(error.message)
 		this.emit('end')
 	})
 	.pipe(source('dist.js'))

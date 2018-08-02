@@ -1,4 +1,4 @@
-const { lazy, map, filter, take, takeWhile, drop, dropWhile } = require('../dist/dist')
+const { lazy, map, filter, take, takeWhile, drop, dropWhile, chunk } = require('../dist/dist')
 
 const testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
@@ -28,13 +28,19 @@ const lz4 = lazy(
   dropWhile(v => v < 2)
 )
 
+const lz5 = lazy(
+  filter(v => v % 2 === 0),
+  chunk(4)
+)
+
 console.log(
-  lz1(testData),
-  lz1(testData),
-  lz2(testData),
-  lz2(testData),
-  lz3(testData),
-  lz3(testData),
-  lz4(testData),
-  lz4(testData),
+  // lz1(testData),
+  // lz1(testData),
+  // lz2(testData),
+  // lz2(testData),
+  // lz3(testData),
+  // lz3(testData),
+  // lz4(testData),
+  // lz4(testData),
+  lz5(testData)
 )
