@@ -106,3 +106,22 @@ console.log(
   '\n',
   lz9(testDataObj.concat(testDataObj)),
 )
+
+let stime = process.hrtime.bigint()
+const tlr = testData.map(v => v * v).filter(v => v % 2 === 0).map(v => v / 2)
+console.log(process.hrtime.bigint() - stime)
+
+const lzt = lazy(
+  map(v => v * v),
+  filter(v => v % 2 === 0),
+  map(v => v / 2)
+)
+
+stime = process.hrtime.bigint()
+const lztr = lzt(testData)
+console.log(process.hrtime.bigint() - stime)
+
+console.log(
+  tlr,
+  lztr
+)
