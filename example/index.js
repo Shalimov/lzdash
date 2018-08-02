@@ -4,6 +4,7 @@ const {
   flatMap,
   flatMapDeep,
   filter,
+  reject,
   take,
   takeWhile,
   drop,
@@ -80,64 +81,33 @@ const lz11 = lazy(
   flatMapDeep(v => [v, [[v], v], v])
 )
 
-console.log(
-  // '\n',
-  // lz1(testData),
-  // '\n',
-  // lz1(testData),
-  // '\n',
-  // lz2(testData),
-  // '\n',
-  // lz2(testData),
-  // '\n',
-  // lz3(testData),
-  // '\n',
-  // lz3(testData),
-  // '\n',
-  // lz4(testData),
-  // '\n',
-  // lz4(testData),
-  // '\n',
-  // lz5(testData),
-  // '\n',
-  // lz6(testData.concat(testData)),
-  // '\n',
-  // lz6(testData.concat(testData)),
-  // '\n',
-  // lz7(testData),
-  // '\n',
-  // lz7(testData),
-  // '\n',
-  // lz7(testData),
-  // '\n',
-  // lz8(testDataObj.concat(testDataObj)),
-  // '\n',
-  // lz8(testDataObj.concat(testDataObj)),
-  // '\n',
-  // lz9(testDataObj.concat(testDataObj)),
-  // '\n',
-  // lz9(testDataObj.concat(testDataObj)),
-  '\n',
-  lz10(testData),
-  '\n',
-  lz11(testData),
+const lz12 = lazy(
+  reject(v => v % 2 === 0),
+  flatMap(v => [v, v])
 )
 
-let stime = process.hrtime.bigint()
-const tlr = testData.map(v => v * v).filter(v => v % 2 === 0).map(v => v / 2)
-console.log(process.hrtime.bigint() - stime)
-
-const lzt = lazy(
-  map(v => v * v),
-  filter(v => v % 2 === 0),
-  map(v => v / 2)
-)
-
-stime = process.hrtime.bigint()
-const lztr = lzt(testData)
-console.log(process.hrtime.bigint() - stime)
-
 console.log(
-  tlr,
-  lztr
+  [
+    lz1(testData),
+    lz1(testData),
+    lz2(testData),
+    lz2(testData),
+    lz3(testData),
+    lz3(testData),
+    lz4(testData),
+    lz4(testData),
+    lz5(testData),
+    lz6(testData.concat(testData)),
+    lz6(testData.concat(testData)),
+    lz7(testData),
+    lz7(testData),
+    lz7(testData),
+    lz8(testDataObj.concat(testDataObj)),
+    lz8(testDataObj.concat(testDataObj)),
+    lz9(testDataObj.concat(testDataObj)),
+    lz9(testDataObj.concat(testDataObj)),
+    lz10(testData),
+    lz11(testData),
+    lz12(testData),
+  ].join('\n')
 )
