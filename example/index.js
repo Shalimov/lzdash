@@ -1,6 +1,21 @@
-const { lazy, map, filter, take, takeWhile, drop, dropWhile, chunk } = require('../dist/dist')
+const {
+  lazy,
+  map,
+  filter,
+  take,
+  takeWhile,
+  drop,
+  dropWhile,
+  chunk,
+  uniq,
+  uniqBy,
+  reduce,
+  fromPairs,
+} = require('../dist/dist')
 
+const toObjData = lazy(map(v => ({ v })))
 const testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+const testDataObj = toObjData(testData)
 
 const lz1 = lazy(
   filter(v => v % 2 === 0),
@@ -8,12 +23,10 @@ const lz1 = lazy(
   take(4)
 )
 
-
 const lz2 = lazy(
   filter(v => v % 2 === 0),
   takeWhile(v => v < 5)
 )
-
 
 const lz3 = lazy(
   filter(v => v % 2 === 0),
@@ -21,11 +34,10 @@ const lz3 = lazy(
   drop(5)
 )
 
-
 const lz4 = lazy(
   filter(v => v % 2 === 0),
   map(v => v),
-  dropWhile(v => v < 2)
+  dropWhile(v => v < 10)
 )
 
 const lz5 = lazy(
@@ -33,14 +45,64 @@ const lz5 = lazy(
   chunk(4)
 )
 
+const lz6 = lazy(
+  filter(v => v % 2 === 0),
+  uniq
+)
+
+const lz7 = lazy(
+  filter(v => v % 2 === 0),
+  map(v => v * v),
+  reduce((x, y) => y - x)
+)
+
+const lz8 = lazy(
+  filter(v => v.v % 2 === 0),
+  uniqBy(v => v.v)
+)
+
+const lz9 = lazy(
+  filter(v => v.v % 2 === 0),
+  uniqBy(v => v.v),
+  map(v => [`__${v.v}__`, v.v]),
+  fromPairs
+)
+
 console.log(
-  // lz1(testData),
-  // lz1(testData),
-  // lz2(testData),
-  // lz2(testData),
-  // lz3(testData),
-  // lz3(testData),
-  // lz4(testData),
-  // lz4(testData),
-  lz5(testData)
+  '\n',
+  lz1(testData),
+  '\n',
+  lz1(testData),
+  '\n',
+  lz2(testData),
+  '\n',
+  lz2(testData),
+  '\n',
+  lz3(testData),
+  '\n',
+  lz3(testData),
+  '\n',
+  lz4(testData),
+  '\n',
+  lz4(testData),
+  '\n',
+  lz5(testData),
+  '\n',
+  lz6(testData.concat(testData)),
+  '\n',
+  lz6(testData.concat(testData)),
+  '\n',
+  lz7(testData),
+  '\n',
+  lz7(testData),
+  '\n',
+  lz7(testData),
+  '\n',
+  lz8(testDataObj.concat(testDataObj)),
+  '\n',
+  lz8(testDataObj.concat(testDataObj)),
+  '\n',
+  lz9(testDataObj.concat(testDataObj)),
+  '\n',
+  lz9(testDataObj.concat(testDataObj)),
 )
