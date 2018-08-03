@@ -5,6 +5,7 @@ const {
   flatMapDeep,
   filter,
   reject,
+  compact,
   take,
   takeWhile,
   drop,
@@ -13,12 +14,22 @@ const {
   uniq,
   uniqBy,
   reduce,
+  keys,
+  values,
+  entries,
   fromPairs,
 } = require('../dist/dist')
 
 const toObjData = lazy(map(v => ({ v })))
 const testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 const testDataObj = toObjData(testData)
+const testObject = {
+  a: 1,
+  b: 2,
+  c: 3,
+  d: 4,
+  g: 5
+}
 
 const lz1 = lazy(
   filter(v => v % 2 === 0),
@@ -86,6 +97,27 @@ const lz12 = lazy(
   flatMap(v => [v, v])
 )
 
+const lz13 = lazy(
+  compact,
+  flatMap(v => v)
+)
+
+const lz14 = lazy(
+  keys,
+  map(k => `__key_${k}__`)
+)
+
+const lz15 = lazy(
+  values,
+  map(v => `__value_${v}__`)
+)
+
+const lz16 = lazy(
+  entries,
+  map(([k, v]) => `__entry_${k}_${v}__`)
+)
+
+
 console.log(
   [
     lz1(testData),
@@ -109,5 +141,12 @@ console.log(
     lz10(testData),
     lz11(testData),
     lz12(testData),
+    lz13(testData.concat([0, NaN, false, null, undefined, ""])),
+    lz14(testObject),
+    lz14(testObject),
+    lz15(testObject),
+    lz15(testObject),
+    lz16(testObject),
+    lz16(testObject),
   ].join('\n')
 )
