@@ -3,8 +3,8 @@ import * as fromFuncs from '../../../lib/funcs/from'
 
 const { fromPairs } = fromFuncs
 
-describe('Test Chunk funcs set', () => {
-  test('set should have two function', () => {
+describe('Test From funcs set', () => {
+  test('set should have two functions', () => {
     expect(Object.keys(fromFuncs)).toEqual(['from', 'fromPairs'])
   })
 
