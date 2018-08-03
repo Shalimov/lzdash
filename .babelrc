@@ -1,9 +1,21 @@
 {
   "presets": [
-    "env",
-    "stage-0"
+    [
+			"env",
+			{
+				"targets": {
+					"browsers": [
+						"last 2 Chrome versions"
+					]
+				},
+				"useBuiltIns": true
+			}
+		],
+    "stage-0",
+    "jest"
   ],
   "plugins": [
     "transform-runtime"
   ]
 }
+

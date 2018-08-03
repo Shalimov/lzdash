@@ -6,12 +6,14 @@
   "author": "Shalimov <Shalimich@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "test": "node ./node_modules/jest/bin/jest.js ./tests"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-env": "^2.4.1",
     "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-register": "^6.26.0",
     "babelify": "^8.0.0",
@@ -29,5 +31,8 @@
     "jest": "^23.4.2",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
