@@ -1,3 +1,5 @@
+const util = require('util')
+
 const {
   lazy,
   map,
@@ -17,6 +19,9 @@ const {
   keys,
   values,
   entries,
+  zip,
+  zipWith,
+  range,
   fromPairs,
 } = require('../dist/dist')
 
@@ -117,6 +122,15 @@ const lz16 = lazy(
   map(([k, v]) => `__entry_${k}_${v}__`)
 )
 
+const lz17 = lazy(
+  keys,
+  zip(range(-1, -Infinity))
+)
+
+const lz18 = lazy(
+  keys,
+  zipWith(range(0), (a, b) => ({ [a]: b }))
+)
 
 console.log(
   [
@@ -148,5 +162,7 @@ console.log(
     lz15(testObject),
     lz16(testObject),
     lz16(testObject),
-  ].join('\n')
+    lz17(testObject),
+    lz18(testObject),
+  ].join('\n'),
 )
