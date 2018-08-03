@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "build": "gulp build",
-    "test": "node ./node_modules/jest/bin/jest.js ./tests"
+    "test": "node ./node_modules/jest/bin/jest.js ./tests",
+    "posttest": "yarn build"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
