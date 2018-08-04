@@ -1,7 +1,7 @@
 import { lazy } from '../../../lib/lazy'
 import { map } from '../../../lib/funcs/map'
 import { take } from '../../../lib/funcs/take'
-import * as rangeFuncs from '../../../lib/funcs/range'
+import * as rangeFuncs from '../../../lib/sources/range'
 
 const { range } = rangeFuncs
 
