@@ -3,12 +3,12 @@ import * as uniqFuncs from '../../../lib/funcs/uniq'
 
 const { uniq, uniqBy } = uniqFuncs
 
-describe('Test Drop funcs set', () => {
+describe('Test Uniq funcs set', () => {
   test('set should have two functions', () => {
     expect(Object.keys(uniqFuncs)).toEqual(['uniq', 'uniqBy'])
   })
 
-  test('#take should retain n of elements from start and abort sequence', () => {
+  test('#uniq should return only uniq elements', () => {
     const lz = lazy(uniq)
 
     expect(lz([1, 1, 2, 3, 3, 4, 4, 5, 3, 1, 2, 6])).toEqual([1, 2, 3, 4, 5, 6])
@@ -22,7 +22,7 @@ describe('Test Drop funcs set', () => {
     expect(lz(undefined)).toEqual([])
   })
 
-  test('#takeWhile should retain elements from start while condition is true then abort sequence', () => {
+  test('#uniqBy should return only uniq elements by some params', () => {
     const lz = lazy(uniqBy(obj => obj.x))
 
     expect(lz([1, 1, 2, 3, 3, 4, 4, 5, 3, 1, 2, 6].map(x => ({ x })))).toEqual([
