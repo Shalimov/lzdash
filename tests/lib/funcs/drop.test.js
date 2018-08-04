@@ -22,7 +22,6 @@ describe('Test Drop funcs set', () => {
     expect(lz(undefined)).toEqual([])
   })
 
-
   test('#dropWhile should skip elements from start while condition is true', () => {
     const lz = lazy(dropWhile(v => v < 5))
 
