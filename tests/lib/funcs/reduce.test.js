@@ -22,11 +22,11 @@ describe('Test Reduce funcs set', () => {
     expect(lz(undefined)).toEqual(undefined)
   })
 
-  test.skip('#reduce could accept acc param', () => {
-    const lz = lazy(reduce((a, x) => {
-      a[x] = x
-      return a
-    }, {}))
+  test('#reduce could accept acc param', () => {
+    const lz = lazy(reduce((a, x) => ({
+      ...a,
+      [x]: x,
+    }), {}))
 
     expect(lz([1, 2, 3, 4, 5, 6])).toEqual({
       1: 1,
@@ -40,10 +40,10 @@ describe('Test Reduce funcs set', () => {
     // Should be investigated
     expect(lz([])).toEqual({})
 
-    expect(lz({})).toEqual(undefined)
-    expect(lz()).toEqual(undefined)
-    expect(lz(1)).toEqual(undefined)
-    expect(lz(null)).toEqual(undefined)
-    expect(lz(undefined)).toEqual(undefined)
+    expect(lz({})).toEqual({})
+    expect(lz()).toEqual({})
+    expect(lz(1)).toEqual({})
+    expect(lz(null)).toEqual({})
+    expect(lz(undefined)).toEqual({})
   })
 })
