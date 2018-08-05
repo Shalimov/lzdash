@@ -3,6 +3,7 @@ import * as zipFuncs from '../../../lib/funcs/zip'
 
 const { zip, zipWith } = zipFuncs
 
+// TODO: add test for diff kind of sources
 describe('Test Zip funcs set', () => {
   test('set should have two functions', () => {
     expect(Object.keys(zipFuncs)).toEqual(['zip', 'zipWith'])

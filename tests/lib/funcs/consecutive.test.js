@@ -1,15 +1,15 @@
 import { lazy } from '../../../lib/lazy'
-import * as pairsFuncs from '../../../lib/funcs/pairs'
+import * as consecutiveFuncs from '../../../lib/funcs/consecutive'
 
-const { pairs } = pairsFuncs
+const { consecutive } = consecutiveFuncs
 
 describe('Test Pairs funcs set', () => {
   test('set should have one functions as source', () => {
-    expect(Object.keys(pairsFuncs)).toEqual(['pairs'])
+    expect(Object.keys(consecutiveFuncs)).toEqual(['consecutive'])
   })
 
   test('#reduce should return sum of number in array', () => {
-    const lz = lazy(pairs)
+    const lz = lazy(consecutive)
 
     expect(lz([1, 2, 3])).toEqual([[1, 2], [2, 3]])
     expect(lz([1, 2])).toEqual([[1, 2]])
