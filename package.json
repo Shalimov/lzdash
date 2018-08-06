@@ -1,7 +1,7 @@
 {
   "name": "lzdash",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/dist.js",
   "repository": "https://github.com/Shalimov/lazier.git",
   "author": "Shalimov <Shalimich@gmail.com>",
   "license": "MIT",
