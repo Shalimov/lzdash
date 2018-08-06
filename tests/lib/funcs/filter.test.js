@@ -3,7 +3,7 @@ import * as filterFuncs from '../../../lib/funcs/filter'
 
 const { filter, reject, compact } = filterFuncs
 
-describe('Test Chunk funcs set', () => {
+describe('Test Filters funcs set', () => {
   test('set should have three functions', () => {
     expect(Object.keys(filterFuncs)).toEqual(['filter', 'reject', 'compact'])
   })

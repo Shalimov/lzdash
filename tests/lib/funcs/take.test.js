@@ -3,7 +3,7 @@ import * as takeFuncs from '../../../lib/funcs/take'
 
 const { take, takeWhile } = takeFuncs
 
-describe('Test Drop funcs set', () => {
+describe('Test take funcs set', () => {
   test('set should have two functions', () => {
     expect(Object.keys(takeFuncs)).toEqual(['take', 'takeWhile'])
   })
