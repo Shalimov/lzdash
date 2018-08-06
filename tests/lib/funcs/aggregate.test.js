@@ -19,12 +19,12 @@ describe('Test Group funcs set', () => {
       5: [{ x: 5 }],
     })
 
-    expect(lz([])).toEqual({})
-    expect(lz({})).toEqual({})
-    expect(lz()).toEqual({})
-    expect(lz(1)).toEqual({})
-    expect(lz(null)).toEqual({})
-    expect(lz(undefined)).toEqual({})
+    expect(lz([])).toEqual(undefined)
+    expect(lz({})).toEqual(undefined)
+    expect(lz()).toEqual(undefined)
+    expect(lz(1)).toEqual(undefined)
+    expect(lz(null)).toEqual(undefined)
+    expect(lz(undefined)).toEqual(undefined)
   })
 
 
@@ -39,11 +39,11 @@ describe('Test Group funcs set', () => {
       5: 1,
     })
 
-    expect(lz([])).toEqual({})
-    expect(lz({})).toEqual({})
-    expect(lz()).toEqual({})
-    expect(lz(1)).toEqual({})
-    expect(lz(null)).toEqual({})
-    expect(lz(undefined)).toEqual({})
+    expect(lz([])).toEqual(undefined)
+    expect(lz({})).toEqual(undefined)
+    expect(lz()).toEqual(undefined)
+    expect(lz(1)).toEqual(undefined)
+    expect(lz(null)).toEqual(undefined)
+    expect(lz(undefined)).toEqual(undefined)
   })
 })
