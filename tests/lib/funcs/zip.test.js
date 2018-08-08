@@ -1,4 +1,4 @@
-import { lazy, lazySource, map, filter, range, take } from '../../../lib'
+import { lazy, lazySource, map, filter, range, repeat, generator, take } from '../../../lib'
 import * as zipFuncs from '../../../lib/funcs/zip'
 
 const { zip, zipWith } = zipFuncs
@@ -28,6 +28,14 @@ describe('Test Zip funcs set', () => {
       [5, 100],
       [6, 144],
     ])
+    expect(lz([1, 2, 3, 4, 5, 6])).toEqual([
+      [1, 4],
+      [2, 16],
+      [3, 36],
+      [4, 64],
+      [5, 100],
+      [6, 144],
+    ])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
@@ -49,6 +57,7 @@ describe('Test Zip funcs set', () => {
     )
 
     expect(lz([1, 2, 3, 4, 5, 6])).toEqual([3, 14, 33, 60, 95, 138])
+    expect(lz([1, 2, 3, 4, 5, 6])).toEqual([3, 14, 33, 60, 95, 138])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
@@ -56,5 +65,21 @@ describe('Test Zip funcs set', () => {
     expect(lz([])).toEqual([])
     expect(lz(null)).toEqual([])
     expect(lz(undefined)).toEqual([])
+  })
+
+  test('#zip should mix diff sources', () => {
+    let lz = lazy(zip([0, 1, 2, 3, 4, 5, 6]))
+
+    expect(lz([1, 2, 3, 4, 5, 6, 7])).toEqual([[1, 0], [2, 1], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6]])
+    expect(lz([1, 2, 3, 4, 5, 6, 7])).toEqual([[1, 0], [2, 1], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6]])
+    
+    lz = lazy(zip(repeat('hi')))
+    expect(lz([1, 2, 3])).toEqual([[1, 'hi'], [2, 'hi'], [3, 'hi']])
+
+    lz = lazy(zip(generator((i) => {
+      return -i
+    })))
+    expect(lz([1, 2, 3])).toEqual([[1, -0], [2, -1], [3, -2]])
+    expect(lz([1, 2, 3])).toEqual([[1, -0], [2, -1], [3, -2]])
   })
 })

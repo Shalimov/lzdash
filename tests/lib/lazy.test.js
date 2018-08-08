@@ -15,7 +15,7 @@ describe('Test LAZY flow generator', () => {
       map(v => v * v)
     )
 
-    const l = ls([1, 2, 3, 4])
+    const l = ls([1, 2, 3, 4])()
 
     expect(l()).toBe(4)
     expect(l()).toBe(16)
