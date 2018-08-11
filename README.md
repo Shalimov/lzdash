@@ -10,40 +10,36 @@ import lz from 'lzdash'
 
 
 const fpSuperSum = fp.flow(
-	fp.filter(v => v % 2 === 0),
-    fp.map(v => v * v),
-    fp.reduce((x, y) => x + y, 0)
+  fp.filter(v => v % 2 === 0),
+  fp.map(v => v * v),
+  fp.reduce((x, y) => x + y, 0)
 )
 
 
 const lzSuperSum = lz.lazy(
-	lz.filter(v => v % 2 === 0),
-    lz.map(v => v * v),
-    lz.reduce((x, y) => x + y, 0)
+  lz.filter(v => v % 2 === 0),
+  lz.map(v => v * v),
+  lz.reduce((x, y) => x + y, 0)
 )
 
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const _result = _.reduce(
-	
-    _.map(
-    	_.filter(data, v => v % 2 === 0),
-        v => v * v
-    ),
-    
+  _.map(
+    _.filter(data, v => v % 2 === 0),
+      v => v * v
+  ),
 	(x, y) => x + y,
 	0
 )
 
 console.log(
-	fpSuperSum(data), // 220, iterations 10 by filter, 5 by map, 5 by reduce
-	_result, // 220, iterations 10 by filter, 5 by map, 5 by reduce,
-    // ---------------------
-    lzSuperSum(data), // 220, only 10 iterations because of lazy nature
+  fpSuperSum(data), // 220, iterations 10 by filter, 5 by map, 5 by reduce
+  _result, // 220, iterations 10 by filter, 5 by map, 5 by reduce,
+  // ---------------------
+  lzSuperSum(data), // 220, only 10 iterations because of lazy nature
 )
-
-
 
 ```
 
