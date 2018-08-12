@@ -14,6 +14,11 @@ const fpSuperSum = fp.flow(
   fp.reduce((x, y) => x + y, 0)
 )
 
+// when u pass a collection to handle
+// it starts from reduce and ask for `y` arg to be evaluated
+// this request goes to map and then map do the same in relation to filter
+// filter ask collection to get 1 item and pass item to map if it fits the condition
+// filter holds map evaluation while predicate gives false (other words: condition is not true)
 const lzSuperSum = lz.lazy(
   lz.filter(v => v % 2 === 0),
   lz.map(v => v * v),
@@ -30,7 +35,7 @@ console.log(
   fpSuperSum(data), // returns 220, iterations 10 by filter, 5 by map, 5 by reduce
   _result, // returns 220, iterations 10 by filter, 5 by map, 5 by reduce,
   // ---------------------
-  lzSuperSum(data), // returns 220, only 10 iterations because of lazy nature
+  lzSuperSum(data), // returns 220, only 10 iterations because of lazy nature + sharing
 )
 
 ```
