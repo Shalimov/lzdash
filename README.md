@@ -27,9 +27,9 @@ const lzSuperSum = lz.lazy(
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-const _filterResult = _.filter(data, v => v % 2 === 0)
-const _mapResult = _.map(_filterResult, v => v * v)
-const _result = _.reduce(_mapResult, (x, y) => x + y, 0)
+const _filterResult = _.filter(data, v => v % 2 === 0) // 10 iterations => [2, 4, 6, 8, 10]
+const _mapResult = _.map(_filterResult, v => v * v) // 5 iterations => [4, 16, 36, 64, 100]
+const _result = _.reduce(_mapResult, (x, y) => x + y, 0) // 5 iterations => 220
 
 console.log(
   fpSuperSum(data), // returns 220, iterations 10 by filter, 5 by map, 5 by reduce
@@ -46,6 +46,8 @@ yarn add lzdash
 // or
 npm install lzdash
 ```
+
+Also check [API Docs](/docs/api.md)
 
 
 
