@@ -2,6 +2,8 @@
 
 **lzdash** is a functional utility library for JavaScript, contains subset of Lodash functions (api similar to lodash/fp), but with a lazy engine under the hood that strives to do as little work as possible while being as flexible as possible.
 
+__For more information check [API Docs](/docs/api.md)__
+
 ```javascript
 import fp from 'lodash/fp'
 import _ from 'lodash'
@@ -46,9 +48,6 @@ yarn add lzdash
 // or
 npm install lzdash
 ```
-
-Also check [API Docs](/docs/api.md)
-
 
 
 **TL/DR;**
