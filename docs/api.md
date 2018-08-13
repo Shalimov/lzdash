@@ -40,8 +40,7 @@
 
 ***
 
-### **Lazy**
-(#lazy)
+### **Lazy** [](#lazy)
 Create a lazy pipeline of functions, kind of execution plan
 ```javascript
 import lz from 'lzdash'
