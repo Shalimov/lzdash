@@ -10,11 +10,11 @@
 1. [consecutive](/docs/api.md#consecutive)
 1. [intersection](/docs/api.md#intersection)
 1. [intersectionBy](/docs/api.md#intersectionBy)
-1. [difference](/docs/api.md#lazy)
-1. [differenceBy](/docs/api.md#lazy)
-1. [filter](/docs/api.md#lazy)
-1. [reject](/docs/api.md#lazy)
-1. [compact](/docs/api.md#lazy)
+1. [difference](/docs/api.md#difference)
+1. [differenceBy](/docs/api.md#differenceBy)
+1. [filter](/docs/api.md#filter)
+1. [reject](/docs/api.md#reject)
+1. [compact](/docs/api.md#compact)
 1. [reduce](/docs/api.md#lazy)
 1. [take](/docs/api.md#lazy)
 1. [takeWhile](/docs/api.md#lazy)
@@ -74,7 +74,8 @@ pipeline(null) // []
 pipeline() // []
 ```
 ---
-### **Map** [](#map)
+### **Map**
+[](#map)
 
 `lz.map(iteratee)`
 
@@ -101,7 +102,8 @@ pl(null) // []
 pl(undefined) // []
 ```
 ---
-### **Flat Map** [](#flatMap)
+### **Flat Map**
+[](#flatMap)
 
 `lz.flatMap(iteratee)`
 
@@ -127,7 +129,8 @@ pl(null) // []
 pl(undefined) // []
 ```
 ---
-### **Flat Map Deep** [](#flatMapDeep)
+### **Flat Map Deep**
+[](#flatMapDeep)
 
 `lz.flatMapDeep(iteratee)`
 
@@ -153,7 +156,8 @@ pl(null) // []
 pl(undefined) // []
 ```
 ---
-### **Flatten** [](#flatten)
+### **Flatten**
+[](#flatten)
 
 `lz.flatten`
 
@@ -174,7 +178,8 @@ pl(null) // []
 pl(undefined) // []
 ```
 ---
-### **Flatten Deep** [](#flattenDeep)
+### **Flatten Deep**
+[](#flattenDeep)
 
 `lz.flattenDeep`
 
@@ -195,7 +200,8 @@ pl(null) // []
 pl(undefined) // []
 ```
 ---
-### **Consecutive** [](#consecutive)
+### **Consecutive**
+[](#consecutive)
 
 `lz.consecutive`
 
@@ -216,7 +222,8 @@ pl(null) // []
 pl(undefined) // []
 ```
 ---
-### **Intersection** [](#intersection)
+### **Intersection**
+[](#intersection)
 
 `lz.intersection(arrayToCompare)`
 
@@ -237,6 +244,166 @@ const pl = lz.lazy(
 )
 
 pl([1, 2, 3, 4]) // [2, 3]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Intersection By**
+[](#intersectionBy)
+
+`lz.intersectionBy(array, [iteratee=_.identity])`
+
+This method is like [lz.intersection](/docs/api.md#intersection) except that it accepts iteratee which is invoked for each element of each arrays to generate the criterion by which they're compared. 
+
+**Params:** 
+- Array\<any> - array of values to compare
+- iteratee - function that is used to extract value (usualy of transform key or etc...)
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.intersectionBy([{ x: 2 }, { x: 3 }], value => value.x)
+)
+
+pl([{ x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }]) // [{ x: 2 }, { x: 3 }]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Difference**
+[](#difference)
+
+`lz.difference(arrayToCompare)`
+
+Creates an array of array values not included in the other given arrays using strict comparison `===` for equality comparisons. The order and references of result values are determined by the first array. 
+
+**Params:** 
+- Array\<any> - array of values to compare
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.difference([0, 1, 2, 3])
+)
+
+pl([1, 2, 3, 4, 5]) // [4, 5]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Difference By**
+[](#differenceBy)
+
+`lz.differenceBy(arrayToCompare, [iteratee = identity])`
+
+This method is like [lz.difference](/docs/api.md#difference) except that it accepts iteratee which is invoked for each element of array and values to generate the criterion by which they're compared.
+
+**Params:** 
+- Array\<any> - array of values to compare
+- iteratee - function that is used to extract value (usualy of transform key or etc...)
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.differenceBy([{ x: 2 }, { x: 3 }], value => value.x)
+)
+
+pl([{ x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }]) // [{ x: 1 }, { x: 4 }]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Filter**
+[](#filter)
+
+`lz.filter(predicate)`
+
+Iterates over elements of collection, returning an array of all elements predicate returns truthy for.
+
+**Params:** 
+- predicate - the function invoked per iteration.
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.filter(v => v % 2 === 0)
+)
+
+pl([1, 2, 3, 4, 5, 6]) // [2, 4, 6]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Reject**
+[](#reject)
+
+`lz.reject(predicate)`
+
+The opposite of [lz.filter](/docs/api.md#filter); this method returns the elements of collection that predicate does not return truthy for.
+
+
+**Params:** 
+- predicate - the function invoked per iteration.
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.reject(v => v % 2 === 0)
+)
+
+pl([1, 2, 3, 4, 5, 6]) // [1, 3, 5]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Compact**
+[](#compact)
+
+`lz.compact`
+
+Reject falsey values from result. The values false, null, 0, "", undefined, and NaN are falsey.
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(lz.compact)
+
+pl([1, 0, 3, false, 5, NaN, '', 9, null, undefined, 1]) // [1, 3, 5, 9, 1]
 
 pl(null) // []
 pl(undefined) // []
