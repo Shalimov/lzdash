@@ -16,8 +16,8 @@
 1. [reject](/docs/api.md#reject)
 1. [compact](/docs/api.md#compact)
 1. [reduce](/docs/api.md#reduce)
-1. [take](/docs/api.md#lazy)
-1. [takeWhile](/docs/api.md#lazy)
+1. [take](/docs/api.md#take)
+1. [takeWhile](/docs/api.md#take-while)
 1. [drop](/docs/api.md#lazy)
 1. [dropWhile](/docs/api.md#lazy)
 1. [uniq](/docs/api.md#lazy)
@@ -437,4 +437,58 @@ pl([1, 2, 3, 4, 5]) // 15
 
 pl(null) // undefined
 pl(undefined) // undefined
+```
+---
+### **Take**
+[](#take)
+
+`lz.take(n)`
+
+Takes `n` elements from the beginning and stop pipeline evaluation.
+
+**Params:**
+- n - items count to take
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.take(3)
+)
+
+pl([1, 2, 3, 4, 5]) // [1, 2, 3] - requires only 3 iterations
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Take While**
+[](#take-while)
+
+`lz.takeWhile(predicate)`
+
+Takes elements from the beginning and stop pipeline evaluation if predicate function returns falsey.
+
+**Params:**
+- predicate - function invoked per iteration
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.takeWhile(v => v < 3)
+)
+
+pl([1, 2, 3, 4, 5]) // [1, 2] - requires only 2 iterations
+
+pl(null) // []
+pl(undefined) // []
 ```
