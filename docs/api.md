@@ -3,19 +3,19 @@
 ## **Functions:**
 1. [lazy](/docs/api.md#lazy)
 1. [map](/docs/api.md#map)
-1. [flatMap](/docs/api.md#flatMap)
-1. [flatMapDeep](/docs/api.md#flatMapDeep)
+1. [flatMap](/docs/api.md#flat-map)
+1. [flatMapDeep](/docs/api.md#flat-map-deep)
 1. [flatten](/docs/api.md#flatten)
-1. [flattenDeep](/docs/api.md#flattenDeep)
+1. [flattenDeep](/docs/api.md#flatten-deep)
 1. [consecutive](/docs/api.md#consecutive)
 1. [intersection](/docs/api.md#intersection)
-1. [intersectionBy](/docs/api.md#intersectionBy)
+1. [intersectionBy](/docs/api.md#intersection-by)
 1. [difference](/docs/api.md#difference)
-1. [differenceBy](/docs/api.md#differenceBy)
+1. [differenceBy](/docs/api.md#difference-by)
 1. [filter](/docs/api.md#filter)
 1. [reject](/docs/api.md#reject)
 1. [compact](/docs/api.md#compact)
-1. [reduce](/docs/api.md#lazy)
+1. [reduce](/docs/api.md#reduce)
 1. [take](/docs/api.md#lazy)
 1. [takeWhile](/docs/api.md#lazy)
 1. [drop](/docs/api.md#lazy)
@@ -37,10 +37,13 @@
 1. [repeat](/docs/api.md#lazy)
 1. [generator](/docs/api.md#lazy)
 1. [lazySource](/docs/api.md#lazy)
+***
+## [**Caveats:**](/docs/api.md#caveats)
 
 ***
 
-### **Lazy** [](#lazy)
+### **Lazy**
+[](#lazy)
 
 `lz.lazy(...functions)`
 
@@ -103,7 +106,7 @@ pl(undefined) // []
 ```
 ---
 ### **Flat Map**
-[](#flatMap)
+[](#flat-map)
 
 `lz.flatMap(iteratee)`
 
@@ -130,7 +133,7 @@ pl(undefined) // []
 ```
 ---
 ### **Flat Map Deep**
-[](#flatMapDeep)
+[](#flat-map-deep)
 
 `lz.flatMapDeep(iteratee)`
 
@@ -179,7 +182,7 @@ pl(undefined) // []
 ```
 ---
 ### **Flatten Deep**
-[](#flattenDeep)
+[](#flatten-deep)
 
 `lz.flattenDeep`
 
@@ -250,7 +253,7 @@ pl(undefined) // []
 ```
 ---
 ### **Intersection By**
-[](#intersectionBy)
+[](#intersection-by)
 
 `lz.intersectionBy(array, [iteratee=_.identity])`
 
@@ -305,7 +308,7 @@ pl(undefined) // []
 ```
 ---
 ### **Difference By**
-[](#differenceBy)
+[](#difference-by)
 
 `lz.differenceBy(arrayToCompare, [iteratee = identity])`
 
@@ -407,4 +410,31 @@ pl([1, 0, 3, false, 5, NaN, '', 9, null, undefined, 1]) // [1, 3, 5, 9, 1]
 
 pl(null) // []
 pl(undefined) // []
+```
+---
+### **Reduce**
+[](#reduce)
+
+`lz.reduce(iteratee, [accumulator])`
+
+Reduces running each element thru iteratee, where each successive invocation is supplied the return value of the previous. If accumulator is not given, the first element of collection is used as the initial value.
+
+**Params:**
+- iteratee - function invoked per iteration.
+- accumulator - initial value.
+
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(lz.reduce((x, y) => x + y))
+
+pl([1, 2, 3, 4, 5]) // 15
+
+pl(null) // undefined
+pl(undefined) // undefined
 ```
