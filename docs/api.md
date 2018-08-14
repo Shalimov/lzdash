@@ -18,19 +18,19 @@
 1. [reduce](/docs/api.md#reduce)
 1. [take](/docs/api.md#take)
 1. [takeWhile](/docs/api.md#take-while)
-1. [drop](/docs/api.md#lazy)
-1. [dropWhile](/docs/api.md#lazy)
-1. [uniq](/docs/api.md#lazy)
-1. [uniqBy](/docs/api.md#lazy)
-1. [chunk](/docs/api.md#lazy)
-1. [zip](/docs/api.md#lazy)
-1. [zipWith](/docs/api.md#lazy)
-1. [groupBy](/docs/api.md#lazy)
-1. [countBy](/docs/api.md#lazy)
-1. [keys](/docs/api.md#lazy)
-1. [values](/docs/api.md#lazy)
-1. [entries](/docs/api.md#lazy)
-1. [fromPairs](/docs/api.md#lazy)
+1. [drop](/docs/api.md#drop)
+1. [dropWhile](/docs/api.md#drop-while)
+1. [uniq](/docs/api.md#uniq)
+1. [uniqBy](/docs/api.md#uniq-by)
+1. [chunk](/docs/api.md#chunk)
+1. [zip](/docs/api.md#zip)
+1. [zipWith](/docs/api.md#zip-with)
+1. [groupBy](/docs/api.md#group-by)
+1. [countBy](/docs/api.md#count-by)
+1. [keys](/docs/api.md#keys)
+1. [values](/docs/api.md#values)
+1. [entries](/docs/api.md#entries)
+1. [fromPairs](/docs/api.md#from-pairs)
 ***
 ## **Sources:**
 1. [range](/docs/api.md#lazy)
@@ -255,7 +255,7 @@ pl(undefined) // []
 ### **Intersection By**
 [](#intersection-by)
 
-`lz.intersectionBy(array, [iteratee=_.identity])`
+`lz.intersectionBy(array, [iteratee = identity])`
 
 This method is like [lz.intersection](/docs/api.md#intersection) except that it accepts iteratee which is invoked for each element of each arrays to generate the criterion by which they're compared. 
 
@@ -491,4 +491,365 @@ pl([1, 2, 3, 4, 5]) // [1, 2] - requires only 2 iterations
 
 pl(null) // []
 pl(undefined) // []
+```
+---
+### **Drop**
+[](#drop)
+
+`lz.drop(n)`
+
+Drop first `n` elements from the beginning.
+
+**Params:**
+- n - items count to drop
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.drop(3)
+)
+
+pl([1, 2, 3, 4, 5]) // [4, 5]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Drop While**
+[](#drop-while)
+
+`lz.dropWhile(predicate)`
+
+Drops elements from the beginning and retursn elements after predicate function returns first falsey.
+
+**Params:**
+- predicate - function invoked per iteration
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.dropWhile(v => v < 3)
+)
+
+pl([1, 2, 3, 4, 5]) // [3, 4, 5]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Uniq**
+[](#uniq)
+
+`lz.uniq`
+
+Drops duplicates from flow, using strict equality, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.uniq(v => v < 3)
+)
+
+pl([1, 2, 3, 2, 1, 4]) // [1, 2, 3, 4]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Uniq By**
+[](#uniq-by)
+
+`lz.uniqBy(iteratee)`
+
+This method is like [lz.uniq](/docs/api.md#uniq) except that it accepts iteratee which is invoked for each element in sequence to generate the criterion by which uniqueness is computed. The order of result values is determined by the order they occur in the array. 
+
+**Params:**
+- iteratee - function invoked per iteration
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.uniqBy(item => item.name)
+)
+
+pl([
+  { name: 'Sam' },
+  { name: 'Mary' },
+  { name: 'Sam' },
+  { name: 'Raul' },
+]) // [{ name: 'Sam' }, { name: 'Mary' }, { name: 'Raul' }]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Chunk**
+[](#chunk)
+
+`lz.chunk(n)`
+
+Splits flow's elements into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
+
+**Params:**
+- n - length of each chunk
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.chunk(2)
+)
+
+pl([1, 2, 3, 4, 5]) // [[1, 2], [3, 4], [5]]
+
+pl(null) // []
+pl(undefined) // []
+```
+---
+### **Zip**
+[](#zip)
+
+`lz.zip(source)`
+
+Creates grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on
+
+**Params:**
+- source - sequence source
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const indexSource = lz.repeat(0) // creates an infinite repeater starts from 0 and goes to Infinity
+const withIndicies = lz.zip(indexSource)
+
+const pl = lz.lazy(
+  withIndicies,
+)
+
+pl([1, 2, 3, 4, 5]) // [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]]
+
+const pl1 = lz.lazy(
+  withIndicies,
+  lz.map(([value, index]) => value * index)
+)
+
+pl1([1, 2, 3, 4, 5]) // [0, 2, 6, 12, 20]
+
+const pl2 = lz.lazy(
+  lz.zip(['a', 'b', 'c'])
+)
+
+pl([1, 2, 3, 4, 5]) // [[1, 'a'], [2, 'b'], [3, 'c'], [4, undefined], [5, undefined]]
+```
+---
+### **Zip With**
+[](#zip-with)
+
+`lz.zipWith(source, [iteratee = identity])`
+
+This method is like [lz.zip](/docs/api.md#zip) except that it accepts iteratee to specify how grouped values should be combined. The iteratee is invoked with the elements of each group: (...group).
+
+**Params:**
+- source - sequence source
+- iteratee - function to combine grouped values
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const indexSource = lz.repeat(0) // creates an infinite repeater starts from 0 and goes to Infinity
+
+const pl = lz.lazy(
+  lz.zipWith(indexSource, ((value, index) => value - index))
+)
+
+pl([1, 2, 3, 4, 5]) // [1, 1, 1, 1, 1]
+```
+---
+### **Group By**
+[](#group-by)
+
+`lz.groupBy([iteratee = identity])`
+
+Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
+
+**Params:**
+- iteratee - iteratee to transform keys
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.groupBy((item) => item.key)
+)
+
+pl([
+  { key: 'a', name: 'java' },
+  { key: 'a', name: 'c++' },
+  { key: 'b', name: 'ruby' },
+  { key: 'c', name: 'silversight' },
+])
+/*
+{
+  a: [{ key: 'a', name: 'java' }, { key: 'a', name: 'c++' }],
+  b: [{ key: 'b', name: 'ruby' }],
+  c: [{ key: 'c' }, { name: 'silversight' }]
+}
+*/
+```
+---
+### **Count By**
+[](#count-by)
+
+`lz.countBy([iteratee = identity])`
+
+Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number of times the key was returned by iteratee.
+
+**Params:**
+- iteratee - iteratee to transform keys
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.countBy((item) => item.key)
+)
+
+pl([
+  { key: 'a', name: 'java' },
+  { key: 'a', name: 'c++' },
+  { key: 'b', name: 'ruby' },
+  { key: 'c', name: 'silversight' },
+])
+/*
+{
+  a: 2,
+  b: 1,
+  c: 1
+}
+*/
+```
+---
+### **Keys**
+[](#keys)
+
+`lz.keys`
+
+Creates flow based on passed object's keys to pass it down thru pipeline
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(lz.keys)
+
+pl({ a: 1, b: 2, c: 3 }) // ['a', 'b', 'c']
+```
+---
+### **Values**
+[](#values)
+
+`lz.values`
+
+Creates flow based on passed object's values to pass it down thru pipeline
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(lz.values)
+
+pl({ a: 1, b: 2, c: 3 }) // [1, 2, 3]
+```
+---
+### **Entries**
+[](#entries)
+
+`lz.entries`
+
+Creates flow based on passed object's [key, value] entries to pass it down thru pipeline
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(lz.entries)
+
+pl({ a: 1, b: 2, c: 3 }) // [['a', 1], ['b', 2], ['c', 3]]
+```
+---
+### **From Pairs**
+[](#from-pairs)
+
+`lz.fromPairs`
+
+Method returns an object composed from key-value pairs ([k, v] pair as an example)
+
+**Returns:** 
+- Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.entries,
+  lz.map(([key, value]) => [key, value * 2]),
+  lz.fromPairs
+)
+
+pl({ a: 1, b: 2, c: 3 }) // { a: 2, b: 4, c: 6 }
+
+
+const pl1 = lz.lazy(lz.fromPairs)
+
+pl1([['a', 1], ['b', 2]]) // { a: 1, b: 2 }
 ```
