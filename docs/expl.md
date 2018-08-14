@@ -24,13 +24,15 @@ const pipelineFunc = lz.lazy(
 )
 ```
 
-Want to draw your attention to `lz.lazy` function which composes our `filter` and `map` into one function (similar to `fp.flow` from **lodash/fp**); `lz.lazy` contains all magic inside, it doesn't matter how many functions you pass to compose, `lz.lazy` always add extra function to transform passing param into lazy source by using source provider.
+Want to draw your attention to `lz.lazy` function which composes our `filter` and `map` into one function (similar to `fp.flow` from **lodash/fp**); `lz.lazy` contains all magic inside, it doesn't matter how many functions you pass to compose, `lz.lazy` always add extra function to transform passing param into __lazy source__ by using __source provider__.
 
 **Example:**
 
 ![Pipeline function initialization](/docs/img/first-step.jpeg "lz.lazy")
 
-**But what is lazy source?** In a nutshell - it is a collection that returns inner items one by one, e.g:
+**But what is source provider and lazy source itself?**  
+- __source provider__ is function that creates lazy source from collection
+- __lazy source__ is a function that returns inner collection's items one by one, e.g:
 ```javascript
 // under the hood it works smarter but in matter of explanation I simplify source provider
 const END_OF_SOURCE = 'EOS'
@@ -60,9 +62,9 @@ console.log(
 ```
 
 `createArrayLazySource` produces our lazy source function that gives collection elements one by one for
-each call and increments index value inside, if we exceed end of array it starts to return EOS no matter how many times you invoke lazy source.
+each call and increments index value inside, if we exceed end of array it starts to return __EOS__ no matter how many times you invoke lazy source.
 
-**Bottom line**: `sourceProvide` aim is to prepare data to be consumed by other function in the pipeline.
+**Bottom line**: `sourceProvide` aim is to prepare data to be consumed by other function in the pipeline. It is injected implicitly into pipeline.
 
 ---
 Explanation to be continued
