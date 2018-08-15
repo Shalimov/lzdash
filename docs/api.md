@@ -33,10 +33,10 @@
 1. [fromPairs](/docs/api.md#from-pairs)
 ***
 ## [**Sources:**](/docs/api.md#sources)
-1. [range](/docs/api.md#lazy)
-1. [repeat](/docs/api.md#lazy)
-1. [generator](/docs/api.md#lazy)
-1. [lazySource](/docs/api.md#lazy)
+1. [range](/docs/api.md#range)
+1. [repeat](/docs/api.md#repeat)
+1. [generator](/docs/api.md#generator)
+<!-- 1. [lazySource](/docs/api.md#lazy) -->
 ***
 ## [**Caveats**](/docs/api.md#caveats)
 
@@ -871,8 +871,8 @@ Create a lazy source to produce potentially inifinte sequences
 
 **Params:** 
 - start - start of the range
-- end - end of the range
-- step - gap between current and next value in range
+- end - end of the range, exclusive
+- step - distance between current and next value in range
 
 **Returns:** 
 - Function - lazy-source
@@ -900,4 +900,66 @@ const pl1 = lz.lazy(
 )
 
 pl1(lz.range(1)) // [0, 2, 6, 12, 20]
+```
+---
+
+### **Repeat**
+[](#repeat)
+
+`lz.range(what, [count = Infinity])`
+
+Create a lazy source to produce potentially inifinte sequences
+
+**Params:** 
+- what - something to repeat
+- count - count of times to repeat
+
+**Returns:** 
+- Function - lazy-source
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(lz.take(5))
+
+pl(lz.repeat('hi')) // ['hi', 'hi', 'hi', 'hi', 'hi']
+
+const pl1 = lz.lazy(
+  lz.zip(lz.range('abc'))
+  lz.take(3)
+)
+
+pl1(lz.range(1)) // [[1, 'abc'], [2, 'abc'], [3, 'abc']]
+```
+---
+
+### **Generator**
+[](#generator)
+
+`lz.generator(genFunc, [count = Infinity])`
+
+Create a lazy source to produce potentially inifinte sequences
+
+**Params:** 
+- genFunc - value producer, has one argument (index of iteration)
+- count - count of times to repeat
+
+**Returns:** 
+- Function - lazy-source
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(lz.take(5))
+
+pl(lz.generator(Math.random)) // five random numbers
+
+const pl1 = lz.lazy(
+  lz.zip(lz.generator(() => 'abc'), 2)
+  lz.take(3)
+)
+
+pl1(lz.range(1)) // [[1, 'abc'], [2, 'abc'], [3, undefined]]
 ```
