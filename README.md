@@ -4,7 +4,7 @@
 
 **For:**
 - __more information check [API Docs](/docs/api.md)__
-- __explanation how it works check [Explanation](/docs/expl.md)__
+- __explanation how it works, check [Explanation](/docs/expl.md)__
 
 ```javascript
 import fp from 'lodash/fp'

@@ -11,7 +11,7 @@ The benefits of lazy evaluation include:
 - Lazy evaluation is often combined with memoization.
 - Lazy evaluation can lead to reduction in memory footprint, since values are created when needed
 
-Let's review how it `lzdash` works by example:
+Let's review how `lzdash` works by example:
 Assume we have a plan to get all even numbers from array and then multiply each by 2.
 
 Here is the code to do it:
@@ -26,8 +26,7 @@ const pipelineFunc = lz.lazy(
 
 Want to draw your attention to `lz.lazy` function which composes our `filter` and `map` into one function (similar to `fp.flow` from **lodash/fp**); `lz.lazy` contains all magic inside, it doesn't matter how many functions you pass to compose, `lz.lazy` always add extra function to transform passing param into __lazy source__ by using __source provider__.
 
-**Example:**
-
+---
 ![Pipeline function initialization](/docs/img/first-step.jpeg "lz.lazy")
 
 **But what is source provider and lazy source itself?**  
@@ -64,8 +63,93 @@ console.log(
 `createArrayLazySource` produces our lazy source function that gives collection elements one by one for
 each call and increments index value inside, if we exceed end of array it starts to return __EOS__ no matter how many times you invoke lazy source.
 
-**Bottom line**: `sourceProvide` aim is to prepare data to be consumed by other function in the pipeline. It is injected implicitly into pipeline.
+**Bottom line**: `sourceProvider`'s aim is to prepare data to be consumed by other function in the pipeline. It is injected implicitly into pipeline.
 
 ---
-Explanation to be continued
+Seems we're ready to go ahead, let's review the code below, here we added invocation of `pipelineFunc` and print the result.
+```javascript
+import lz from 'lzdash'
+
+const pipelineFunc = lz.lazy(
+  lz.filter(v => v % 2 === 0),
+  lz.map(v => v * 2)
+)
+
+const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+const result = pipelineFunc(data)
+
+console.log(result) // [4, 8, 12, 16, 20]
+```
+
+Let's check the diagramm below:
+
 ![Pipeline function evaluation](/docs/img/sec-step.jpeg "pl([1,2,3,4,5,6,7,8,9,10,11])")
+
+First off, note that `pipelineFunc` has reversed order of passed funcs inside (it starts from __map__ and goes down to __source provider__).
+All main magic has been explained by the diagram below. 
+Let me shed a light here:
+
+1. inside we invoke `map` function, under the hood it works with `arg()` function instead of real values (cuz real values should go thru pipeline chain before `map` consumes it)
+2. in this particular case `arg()` from `map` invokes `filter`
+3. then `filter` requests real value from `lazy source`
+4. after `filter` gets real value, it checks whether value fits to condition
+5. if value fits then `filter` returns control to map (back to step 1) with evaluated value, else (back to step 3)
+6. if value `lazy source` returns `END_OF_SOURCE` then we stop evaluation
+and returns the result
+
+__Example:__
+```javascript
+
+const sourceProvider = createArrayLazySource
+
+const simpleLazy = (fnmap, fnfilter) => {
+  return (dataArray) => {
+    let result = []
+    let value = null
+
+    const lazySource = sourceProvider(dataArray)
+    const filterSource = fnfilter(lazySource)
+    const mapFilterSource = fnmap(filterSource)
+
+    do {
+      value = mapFilterSource()
+      
+      if (value === EOS) break
+
+      result.push(value)
+    } while(value !== EOS)
+
+    return result
+  }
+}
+
+const simpleFilter = (predicate) => {
+  return (argFunction) => {
+    return () => {
+      const realValue = argFunction() // it invokes lazySource here
+      ....implementation....
+    }
+  }
+}
+
+const simpleMap = (iteratee) => {
+  return (argFunction) => {
+    return () => {
+      const realValue = argFunction() // it invokes filter here
+      return realValue === EOS ? EOS : iteratee(realValue)
+    }
+  }
+}
+
+const pl = simpleLazy(
+  simpleFilter(v => v % 2 === 0),
+  simpleMap(v => v * 2)
+)
+
+console.log(
+  pl([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+)
+
+```
+
+Hope it helps you to understand the basics how it works. The section shows intentionally simplified details of implementation but the main gist is revealed.

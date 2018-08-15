@@ -1,6 +1,6 @@
 # Welcome to API Docs
 
-## **Functions:**
+## [**Functions:**](/docs/api.md#funcs)
 1. [lazy](/docs/api.md#lazy)
 1. [map](/docs/api.md#map)
 1. [flatMap](/docs/api.md#flat-map)
@@ -32,15 +32,18 @@
 1. [entries](/docs/api.md#entries)
 1. [fromPairs](/docs/api.md#from-pairs)
 ***
-## **Sources:**
+## [**Sources:**](/docs/api.md#sources)
 1. [range](/docs/api.md#lazy)
 1. [repeat](/docs/api.md#lazy)
 1. [generator](/docs/api.md#lazy)
 1. [lazySource](/docs/api.md#lazy)
 ***
-## [**Caveats:**](/docs/api.md#caveats)
+## [**Caveats**](/docs/api.md#caveats)
 
 ***
+
+## __Functions:__
+[](#funcs)
 
 ### **Lazy**
 [](#lazy)
@@ -647,7 +650,7 @@ Creates grouped elements, the first of which contains the first elements of the 
 ```javascript
 import lz from 'lzdash'
 
-const indexSource = lz.repeat(0) // creates an infinite repeater starts from 0 and goes to Infinity
+const indexSource = lz.range(0) // creates an infinite repeater starts from 0 and goes to Infinity
 const withIndicies = lz.zip(indexSource)
 
 const pl = lz.lazy(
@@ -852,4 +855,49 @@ pl({ a: 1, b: 2, c: 3 }) // { a: 2, b: 4, c: 6 }
 const pl1 = lz.lazy(lz.fromPairs)
 
 pl1([['a', 1], ['b', 2]]) // { a: 1, b: 2 }
+```
+
+***
+
+## __Sources:__
+[](#sources)
+
+### **Range**
+[](#range)
+
+`lz.range(start, [end = Infinity], [step = 1])`
+
+Create a lazy source to produce potentially inifinte sequences
+
+**Params:** 
+- start - start of the range
+- end - end of the range
+- step - gap between current and next value in range
+
+**Returns:** 
+- Function - lazy-source
+
+**Example**
+```javascript
+import lz from 'lzdash'
+
+const pl = lz.lazy(
+  lz.take(5)
+)
+
+pl(lz.range(1, Infinity)) // [1, 2, 3, 4, 5]
+pl(lz.range(1, Infinity, 2)) // [1, 3, 5, 7, 9]
+pl(lz.range(1, 3)) // [1, 2]
+
+pl(lz.range(1, -3)) // [1, 0, -1, -2]
+pl(lz.range(0, -Infinity)) // [0, -1, -2, -3, -4]
+
+const withIndex = lz.zip(lz.range(0))
+
+const pl1 = lz.lazy(
+  withIndex,
+  lz.map(([value, index]) => value * index)
+)
+
+pl1(lz.range(1)) // [0, 2, 6, 12, 20]
 ```
