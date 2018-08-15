@@ -5,6 +5,7 @@
 **For:**
 - __more information check [API Docs](/docs/api.md)__
 - __explanation how it works, check [Explanation](/docs/expl.md)__
+- [__Caveates__](#caveates)
 
 ```javascript
 import fp from 'lodash/fp'
@@ -89,5 +90,46 @@ export {
   repeat,
   generator,
 }
-
 ```
+---
+## __Caveates:__
+[](#caveates)
+
+Because of lazy nature usage of some functions goes alongside with __logical__ restrictions; explanation why is that you will find below, here is a list of restrictions:
+- `reduce`, `groupBy`, `countBy` makes sense to use only as trailing functions
+- `keys`, `values`, `entries` makes sense to use only as leading functions
+
+__NB!__: Main point here is: you can use them wherever you want in pipeline, but in almost all cases it makes sense for some of them be trailing or leading. Because they are lazy and works with args as other lazy functions.
+
+__Example of usage:__
+
+```javascript
+import lz from 'lzdash'
+
+// # trailing functions
+lz.lazy(
+  lz.filter(value => value % 2 === 0),
+  lz.map(value => value ** 2),
+  lz.reduce(...)
+)
+
+lz.lazy(
+  lz.filter(value => value % 2 === 0),
+  lz.map(value => value ** 2),
+  lz.groupBy(...)
+)
+
+lz.lazy(
+  lz.filter(value => value % 2 === 0),
+  lz.map(value => value ** 2),
+  lz.countBy(...)
+)
+
+// # leading functions
+
+lz.lazy(lz.keys, ...otherFuncs)
+lz.lazy(lz.values, ...otherFuncs)
+lz.lazy(lz.entries, ...otherFuncs)
+```
+
+TBD;
