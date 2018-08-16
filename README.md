@@ -5,7 +5,7 @@
 **For:**
 - __more information check [API Docs](/docs/api.md)__
 - __explanation how it works, check [Explanation](/docs/expl.md)__
-- [__Caveates__](#caveates)
+- [__Caveats__](#caveats)
 
 ```javascript
 import fp from 'lodash/fp'
@@ -93,14 +93,14 @@ export {
 }
 ```
 ---
-## __Caveates:__
-[](#caveates)
+## __Caveats:__
+[](#caveats)
 
-Because of lazy nature usage of some functions goes alongside with __logical__ restrictions; explanation why is that you will find below, here is a list of restrictions:
+Because of the lazy nature of some of the functions, __logical__ restrictions apply; explanation to why can be found below. Here is a list of restrictions:
 - `reduce`, `groupBy`, `countBy`, `fromPairs` makes sense to use only as trailing functions
 - `keys`, `values`, `entries` makes sense to use only as leading functions
 
-__NB!__: Main point here is: you can use them wherever you want in pipeline, but in almost all cases it makes sense for some of them be trailing or leading. Because they are lazy and works with args as other lazy functions.
+__NB!__: Main point here being: you can use them wherever you want in the pipeline, but in almost all cases it makes sense for some of them be either trailing or leading. Because they are lazy and work with args as well as other lazy functions (whisper: one by one).
 
 __Example of usage:__
 
