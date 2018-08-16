@@ -52,6 +52,7 @@ yarn add lzdash
 npm install lzdash
 ```
 
+__What we have:__
 ```javascript
 export {
   lazy,
@@ -96,7 +97,7 @@ export {
 [](#caveates)
 
 Because of lazy nature usage of some functions goes alongside with __logical__ restrictions; explanation why is that you will find below, here is a list of restrictions:
-- `reduce`, `groupBy`, `countBy` makes sense to use only as trailing functions
+- `reduce`, `groupBy`, `countBy`, `fromPairs` makes sense to use only as trailing functions
 - `keys`, `values`, `entries` makes sense to use only as leading functions
 
 __NB!__: Main point here is: you can use them wherever you want in pipeline, but in almost all cases it makes sense for some of them be trailing or leading. Because they are lazy and works with args as other lazy functions.
