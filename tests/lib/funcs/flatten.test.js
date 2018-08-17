@@ -1,4 +1,5 @@
 import { lazy } from '../../../lib/lazy'
+import eager from '../../../lib/eager'
 import * as flattenFuncs from '../../../lib/funcs/flatten'
 
 const { flatten, flattenDeep } = flattenFuncs
@@ -15,6 +16,8 @@ describe('Test Flatten funcs set', () => {
     expect(lz([1, [2, 3], [4]])).toEqual([1, 2, 3, 4])
     expect(lz([1, [2, 3], [[4]]])).toEqual([1, 2, 3, [4]])
     expect(lz([[[1]], [2, 3], [[4]]])).toEqual([[1], 2, 3, [4]])
+
+    expect(eager.flatten([1, [2], [3]])).toEqual([1, 2, 3])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])

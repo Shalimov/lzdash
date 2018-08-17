@@ -1,4 +1,5 @@
 import { lazy } from '../../../lib/lazy'
+import eager from '../../../lib/eager'
 import * as mapFuncs from '../../../lib/funcs/map'
 
 const { map, flatMap, flatMapDeep } = mapFuncs
@@ -13,6 +14,8 @@ describe('Test Map funcs set', () => {
 
     expect(lz([1, 2, 3, 4, 5, 6, 7])).toEqual([1, 4, 9, 16, 25, 36, 49])
     expect(lz([1, 2, 3, 4, 5, 6, 7])).toEqual([1, 4, 9, 16, 25, 36, 49])
+
+    expect(eager.map([1, 2, 3, 4], v => v * v)).toEqual([1, 4, 9, 16])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
