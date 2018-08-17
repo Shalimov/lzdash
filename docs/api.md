@@ -1,86 +1,46 @@
 # Welcome to API Docs
 
-<section style="display: flex">
-<section style="flex:1">
-<h2 id="functions"><strong>Functions:</strong></h2>
+**Functions:**
+--------------
 
-<ol style="column-count: 2; column-gap: 5em; border-right: 1px solid #000;">
-<li><a href="/docs/api.md#lazy">lazy</a></li>
+1.  [lazy](/docs/api.md#lazy)
+2.  [map](/docs/api.md#map)
+3.  [flatMap](/docs/api.md#flat-map)
+4.  [flatMapDeep](/docs/api.md#flat-map-deep)
+5.  [flatten](/docs/api.md#flatten)
+6.  [flattenDeep](/docs/api.md#flatten-deep)
+7.  [consecutive](/docs/api.md#consecutive)
+8.  [intersection](/docs/api.md#intersection)
+9.  [intersectionBy](/docs/api.md#intersection-by)
+10.  [difference](/docs/api.md#difference)
+11.  [differenceBy](/docs/api.md#difference-by)
+12.  [filter](/docs/api.md#filter)
+13.  [reject](/docs/api.md#reject)
+14.  [compact](/docs/api.md#compact)
+15.  [reduce](/docs/api.md#reduce)
+16.  [take](/docs/api.md#take)
+17.  [takeWhile](/docs/api.md#take-while)
+18.  [drop](/docs/api.md#drop)
+19.  [dropWhile](/docs/api.md#drop-while)
+20.  [uniq](/docs/api.md#uniq)
+21.  [uniqBy](/docs/api.md#uniq-by)
+22.  [chunk](/docs/api.md#chunk)
+23.  [zip](/docs/api.md#zip)
+24.  [zipWith](/docs/api.md#zip-with)
+25.  [groupBy](/docs/api.md#group-by)
+26.  [countBy](/docs/api.md#count-by)
+27.  [keys](/docs/api.md#keys)
+28.  [values](/docs/api.md#values)
+29.  [entries](/docs/api.md#entries)
+30.  [fromPairs](/docs/api.md#from-pairs)
 
-<li><a href="/docs/api.md#map">map</a></li>
+**Sources:**
+------------
+1.  [range](/docs/api.md#range)
+2.  [repeat](/docs/api.md#repeat)
+3.  [generator](/docs/api.md#generator)
 
-<li><a href="/docs/api.md#flat-map">flatMap</a></li>
-
-<li><a href="/docs/api.md#flat-map-deep">flatMapDeep</a></li>
-
-<li><a href="/docs/api.md#flatten">flatten</a></li>
-
-<li><a href="/docs/api.md#flatten-deep">flattenDeep</a></li>
-
-<li><a href="/docs/api.md#consecutive">consecutive</a></li>
-
-<li><a href="/docs/api.md#intersection">intersection</a></li>
-
-<li><a href="/docs/api.md#intersection-by">intersectionBy</a></li>
-
-<li><a href="/docs/api.md#difference">difference</a></li>
-
-<li><a href="/docs/api.md#difference-by">differenceBy</a></li>
-
-<li><a href="/docs/api.md#filter">filter</a></li>
-
-<li><a href="/docs/api.md#reject">reject</a></li>
-
-<li><a href="/docs/api.md#compact">compact</a></li>
-
-<li><a href="/docs/api.md#reduce">reduce</a></li>
-
-<li><a href="/docs/api.md#take">take</a></li>
-
-<li><a href="/docs/api.md#take-while">takeWhile</a></li>
-
-<li><a href="/docs/api.md#drop">drop</a></li>
-
-<li><a href="/docs/api.md#drop-while">dropWhile</a></li>
-
-<li><a href="/docs/api.md#uniq">uniq</a></li>
-
-<li><a href="/docs/api.md#uniq-by">uniqBy</a></li>
-
-<li><a href="/docs/api.md#chunk">chunk</a></li>
-
-<li><a href="/docs/api.md#zip">zip</a></li>
-
-<li><a href="/docs/api.md#zip-with">zipWith</a></li>
-
-<li><a href="/docs/api.md#group-by">groupBy</a></li>
-
-<li><a href="/docs/api.md#count-by">countBy</a></li>
-
-<li><a href="/docs/api.md#keys">keys</a></li>
-
-<li><a href="/docs/api.md#values">values</a></li>
-
-<li><a href="/docs/api.md#entries">entries</a></li>
-
-<li><a href="/docs/api.md#from-pairs">fromPairs</a></li>
-</ol>
-</section>
-<section style="flex: 1;">
-<h2 id="sources"><strong>Sources:</strong></h2>
-
-<ol>
-<li><a href="/docs/api.md#range">range</a></li>
-
-<li><a href="/docs/api.md#repeat">repeat</a></li>
-
-<li><a href="/docs/api.md#generator">generator</a>
-<!-- 1. <a href="/docs/api.md#lazy">lazySource</a> --></li>
-</section>
-</ol>
-
-<hr />
-</section>
+* * *
 
 ## __Functions:__
 
