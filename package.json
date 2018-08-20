@@ -5,6 +5,17 @@
   "repository": "https://github.com/Shalimov/lazier.git",
   "author": "Shalimov <Shalimich@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "lazy",
+    "utilities",
+    "functional",
+    "non-strict",
+    "javascript",
+    "like lodash",
+    "underscore",
+    "util"
+  ],
+  "sideEffects": false,
   "scripts": {
     "build": "gulp build",
     "test": "node ./node_modules/jest/bin/jest.js ./tests",
