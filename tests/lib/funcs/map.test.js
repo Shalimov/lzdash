@@ -36,6 +36,8 @@ describe('Test Map funcs set', () => {
       expect(lz([1, 2, 3, 4])).toEqual([1, 1, 2, 2, 3, 3, 4, 4])
       expect(lz([[1], [2], [3], [4]])).toEqual([[1], [1], [2], [2], [3], [3], [4], [4]])
 
+      expect(eager.flatMap([[1], [2], [3], [4]], v => [v, v])).toEqual([[1], [1], [2], [2], [3], [3], [4], [4]])
+
       expect(lz()).toEqual([])
       expect(lz(1)).toEqual([])
       expect(lz({})).toEqual([])
@@ -53,6 +55,9 @@ describe('Test Map funcs set', () => {
 
       expect(lz([1, 2, 3])).toEqual([1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3])
       expect(lz([1, [[2]], [3], 4])).toEqual([1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4])
+
+      expect(eager.flatMapDeep([1, [[2]], [3], 4], v => [[v, [v]], [v, [v]]]))
+        .toEqual([1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4])
 
       expect(lz()).toEqual([])
       expect(lz(1)).toEqual([])

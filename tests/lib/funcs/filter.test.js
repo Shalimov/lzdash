@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as filterFuncs from '../../../lib/funcs/filter'
 
@@ -12,6 +13,8 @@ describe('Test Filters funcs set', () => {
     const lz = lazy(compact)
 
     expect(lz(['', 1, 0, 3, NaN, 5, false, 6, undefined, 7, null])).toEqual([1, 3, 5, 6, 7])
+
+    expect(eager.compact(['', 1, 0, 3, NaN, 5, false, 6, undefined, 7, null])).toEqual([1, 3, 5, 6, 7])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
@@ -29,6 +32,10 @@ describe('Test Filters funcs set', () => {
     expect(lz([1, 2, 3])).toEqual([2])
     expect(lz([1])).toEqual([])
 
+    expect(eager.filter([1, 2, 3, 4, 5, 6, 7], even)).toEqual([2, 4, 6])
+    expect(eager.filter([1, 2, 3], even)).toEqual([2])
+    expect(eager.filter([1], even)).toEqual([])
+
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
     expect(lz({})).toEqual([])
@@ -44,6 +51,10 @@ describe('Test Filters funcs set', () => {
     expect(lz([1, 2, 3, 4, 5, 6, 7])).toEqual([1, 3, 5, 7])
     expect(lz([1, 2, 3])).toEqual([1, 3])
     expect(lz([2])).toEqual([])
+
+    expect(eager.reject([1, 2, 3, 4, 5, 6, 7], even)).toEqual([1, 3, 5, 7])
+    expect(eager.reject([1, 2, 3], even)).toEqual([1, 3])
+    expect(eager.reject([2], even)).toEqual([])
 
     expect(lz()).toEqual([])
     expect(lz(null)).toEqual([])

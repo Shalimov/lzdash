@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as objFuncs from '../../../lib/funcs/object'
 
@@ -14,6 +15,8 @@ describe('Test Object funcs set', () => {
     expect(lz({ a: 1, b: 2, c: 3 })).toEqual(['a', 'b', 'c'])
     expect(lz({ a: 1, b: 2, c: 3, d: 4 })).toEqual(['a', 'b', 'c', 'd'])
 
+    expect(eager.keys({ a: 1, b: 2, c: 3, d: 4 })).toEqual(['a', 'b', 'c', 'd'])
+
     expect(lz({})).toEqual([])
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
@@ -28,6 +31,8 @@ describe('Test Object funcs set', () => {
     expect(lz({ a: 1, b: 2, c: 3 })).toEqual([1, 2, 3])
     expect(lz({ a: 1, b: 2, c: 3, d: 4 })).toEqual([1, 2, 3, 4])
 
+    expect(eager.values({ a: 1, b: 2, c: 3, d: 4 })).toEqual([1, 2, 3, 4])
+
     expect(lz({})).toEqual([])
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
@@ -41,6 +46,8 @@ describe('Test Object funcs set', () => {
 
     expect(lz({ a: 1, b: 2, c: 3 })).toEqual([['a', 1], ['b', 2], ['c', 3]])
     expect(lz({ a: 1, b: 2, c: 3, d: 4 })).toEqual([['a', 1], ['b', 2], ['c', 3], ['d', 4]])
+
+    expect(eager.entries({ a: 1, b: 2, c: 3, d: 4 })).toEqual([['a', 1], ['b', 2], ['c', 3], ['d', 4]])
 
     expect(lz({})).toEqual([])
     expect(lz()).toEqual([])

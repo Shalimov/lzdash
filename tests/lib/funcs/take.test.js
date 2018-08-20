@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as takeFuncs from '../../../lib/funcs/take'
 
@@ -14,6 +15,8 @@ describe('Test take funcs set', () => {
     expect(lz([1, 2, 3, 4, 5, 6])).toEqual([1, 2, 3, 4, 5])
     expect(lz([1, 2, 3, 4, 5, 6, 7])).toEqual([1, 2, 3, 4, 5])
 
+    expect(eager.take([1, 2, 3, 4, 5, 6, 7], 5)).toEqual([1, 2, 3, 4, 5])
+
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
     expect(lz({})).toEqual([])
@@ -27,6 +30,8 @@ describe('Test take funcs set', () => {
 
     expect(lz([1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1])).toEqual([1, 2, 3, 4])
     expect(lz([4, 5, 6, 5, 4, 3, 2, 1])).toEqual([4])
+
+    expect(eager.takeWhile([4, 5, 6, 5, 4, 3, 2, 1], v => v < 5)).toEqual([4])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])

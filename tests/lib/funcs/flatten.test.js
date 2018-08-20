@@ -34,6 +34,8 @@ describe('Test Flatten funcs set', () => {
     expect(lz([1, [2, 3], [[4]]])).toEqual([1, 2, 3, 4])
     expect(lz([[[1]], [2, 3], [[4]]])).toEqual([1, 2, 3, 4])
     expect(lz([[[1]], [[2], 3], [[4]]])).toEqual([1, 2, 3, 4])
+    
+    expect(eager.flattenDeep([[[1]], [[2], 3], [[4]]])).toEqual([1, 2, 3, 4])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])

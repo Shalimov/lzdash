@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as intersectionFuncs from '../../../lib/funcs/intersection'
 
@@ -13,6 +14,8 @@ describe('Test Intersection funcs set', () => {
 
     expect(lz([2, 3, 4, 5, 6, 7])).toEqual([2, 3, 4])
 
+    expect(eager.intersection([2, 3, 4, 5, 6, 7], [1, 2, 3, 4])).toEqual([2, 3, 4])
+
     expect(lz([])).toEqual([])
     expect(lz({})).toEqual([])
     expect(lz()).toEqual([])
@@ -25,6 +28,9 @@ describe('Test Intersection funcs set', () => {
     const lz = lazy(intersectionBy([{ x: 1 }, { x: 2 }], ({ x }) => x))
 
     expect(lz([{ x: 1 }, { x: 3 }, { x: 4 }])).toEqual([{ x: 1 }])
+
+    expect(eager.intersectionBy([{ x: 1 }, { x: 3 }, { x: 4 }], [{ x: 1 }, { x: 2 }], ({ x }) => x))
+      .toEqual([{ x: 1 }])
 
     expect(lz([])).toEqual([])
     expect(lz({})).toEqual([])

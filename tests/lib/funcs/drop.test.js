@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as dropFuncs from '../../../lib/funcs/drop'
 
@@ -14,6 +15,9 @@ describe('Test Drop funcs set', () => {
     expect(lz([1, 2, 3, 4, 5, 6])).toEqual([6])
     expect(lz([1, 2, 3, 4, 5, 6, 7])).toEqual([6, 7])
 
+    expect(eager.drop([1, 2, 3, 4, 5, 6], 5)).toEqual([6])
+    expect(eager.drop([1, 2, 3, 4, 5, 6, 7], 5)).toEqual([6, 7])
+
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
     expect(lz({})).toEqual([])
@@ -27,6 +31,9 @@ describe('Test Drop funcs set', () => {
 
     expect(lz([1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1])).toEqual([5, 6, 5, 4, 3, 2, 1])
     expect(lz([4, 5, 6, 5, 4, 3, 2, 1])).toEqual([5, 6, 5, 4, 3, 2, 1])
+
+    expect(eager.dropWhile([1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1], v => v < 5)).toEqual([5, 6, 5, 4, 3, 2, 1])
+    expect(eager.dropWhile([4, 5, 6, 5, 4, 3, 2, 1], v => v < 5)).toEqual([5, 6, 5, 4, 3, 2, 1])
 
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])

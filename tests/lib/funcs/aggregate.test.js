@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as groupFuncs from '../../../lib/funcs/aggregate'
 
@@ -12,7 +13,15 @@ describe('Test Group funcs set', () => {
     const lz = lazy(groupBy(v => v.x))
 
     const testObj = [2, 3, 4, 5, 2, 3].map(x => ({ x }))
+
     expect(lz(testObj)).toEqual({
+      2: [{ x: 2 }, { x: 2 }],
+      3: [{ x: 3 }, { x: 3 }],
+      4: [{ x: 4 }],
+      5: [{ x: 5 }],
+    })
+
+    expect(eager.groupBy(testObj, v => v.x)).toEqual({
       2: [{ x: 2 }, { x: 2 }],
       3: [{ x: 3 }, { x: 3 }],
       4: [{ x: 4 }],
@@ -33,6 +42,13 @@ describe('Test Group funcs set', () => {
 
     const testObj = [2, 3, 4, 5, 2, 3].map(x => ({ x }))
     expect(lz(testObj)).toEqual({
+      2: 2,
+      3: 2,
+      4: 1,
+      5: 1,
+    })
+
+    expect(eager.countBy(testObj, v => v.x)).toEqual({
       2: 2,
       3: 2,
       4: 1,

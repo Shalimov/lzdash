@@ -1,5 +1,6 @@
 import { lazy } from '../../../lib/lazy'
 import * as reduceFuncs from '../../../lib/funcs/reduce'
+import eager from '../../../lib/eager'
 
 const { reduce } = reduceFuncs
 
@@ -13,7 +14,8 @@ describe('Test Reduce funcs set', () => {
 
     expect(lz([1, 2, 3, 4, 5, 6])).toEqual(21)
 
-    
+    expect(eager.reduce([1, 2, 3, 4, 5, 6], (x, y) => x + y)).toEqual(21)
+
     expect(lz([])).toEqual(undefined)
     expect(lz({})).toEqual(undefined)
     expect(lz()).toEqual(undefined)
@@ -36,7 +38,20 @@ describe('Test Reduce funcs set', () => {
       5: 5,
       6: 6,
     })
-    
+
+
+    expect(eager.reduce([1, 2, 3, 4, 5, 6], (a, x) => ({
+      ...a,
+      [x]: x,
+    }), {})).toEqual({
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 4,
+      5: 5,
+      6: 6,
+    })
+
     // Should be investigated
     expect(lz([])).toEqual({})
 

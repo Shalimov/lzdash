@@ -1,5 +1,7 @@
 # Welcome to API Docs
 
+### __Please, pay your attention that each function in list has its eager version, in case if you need only single function such as: `map/filter/reduce and ....`  to work over some data; in code samples you will find how to invoke and use eager version; THX__
+
 **Functions:**
 --------------
 
@@ -49,7 +51,7 @@
 
 `lz.lazy(...functions)`
 
-Create a lazy pipeline of functions, kind of execution plan
+Create a lazy pipeline of functions, kind of execution plan; has no eager version, cuz it makes no sense.
 
 **Params:** 
 - Arglist\<Function> - functions should belong to lzdash lib
@@ -96,12 +98,17 @@ Creates an array of values by running each element in collection thru iteratee.
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.map(v => v * v)
 )
 
 pl([1, 2, 3]) // [1, 4, 9]
 pl([2, 4, 8]) // [4, 16, 64]
+
+// eager version
+elz.map([2, 4, 8], v => v * v) // [4, 16, 64]
 
 pl(null) // []
 pl(undefined) // []
@@ -124,11 +131,15 @@ Creates a flattened array of values by running each element in collection thru i
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.flatMap(v => [v * 2, v * 3])
 )
 
 pl([1, 2, 3]) // [2, 3, 4, 6, 6, 9]
+
+elz.flatMap([1, 2, 3], v => [v * 2, v * 3]) // [2, 3, 4, 6, 6, 9]
 
 pl(null) // []
 pl(undefined) // []
@@ -151,11 +162,15 @@ This method is like [lz.flatMap](/docs/api.md#flatMap) except that it recursivel
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.flatMapDeep(v => [v, [v * 2, [v * 3]]])
 )
 
 pl([1, 2, 3]) // [1, 2, 3, 2, 4, 6, 3, 6, 9]
+
+elz.flatMapDeep([1, 2, 3], v => [v, [v * 2, [v * 3]]]) // [1, 2, 3, 2, 4, 6, 3, 6, 9]
 
 pl(null) // []
 pl(undefined) // []
@@ -175,9 +190,13 @@ Flattens array a single level deep.
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(lz.flatten)
 
 pl([1, [2, 3], [[4]]]) // [1, 2, 3, [4]]
+
+elz.flatten([1, [2, 3], [[4]]]) // [1, 2, 3, [4]]
 
 pl(null) // []
 pl(undefined) // []
@@ -197,9 +216,13 @@ Recursively flattens array.
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(lz.flattenDeep)
 
 pl([1, [2, 3], [[4]]]) // [1, 2, 3, 4]
+
+elz.flattenDeep([1, [2, 3], [[4]]]) // [1, 2, 3, 4]
 
 pl(null) // []
 pl(undefined) // []
@@ -219,9 +242,13 @@ Groups a sequence into consecutive (overlapping) segments of a length of 2. If t
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(lz.consecutive)
 
 pl([1, 2, 3, 4]) // [[1, 2], [2, 3], [3, 4]]
+
+elz.consecutive([1, 2, 3, 4]) // [[1, 2], [2, 3], [3, 4]]
 
 pl(null) // []
 pl(undefined) // []
@@ -244,11 +271,15 @@ Creates an array of unique values that are included in all given arrays using st
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.intersection([2, 3])
 )
 
 pl([1, 2, 3, 4]) // [2, 3]
+
+elz.intersection([1, 2, 3, 4], [2, 3]) // [2, 3]
 
 pl(null) // []
 pl(undefined) // []
@@ -272,11 +303,17 @@ This method is like [lz.intersection](/docs/api.md#intersection) except that it 
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.intersectionBy([{ x: 2 }, { x: 3 }], value => value.x)
 )
 
-pl([{ x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }]) // [{ x: 2 }, { x: 3 }]
+const data = [{ x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }]
+pl(data) // [{ x: 2 }, { x: 3 }]
+
+elz.intersectionBy(data, [{ x: 2 }, { x: 3 }], value => value.x)
+ // [{ x: 2 }, { x: 3 }]
 
 pl(null) // []
 pl(undefined) // []
@@ -299,11 +336,15 @@ Creates an array of array values not included in the other given arrays using st
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.difference([0, 1, 2, 3])
 )
 
 pl([1, 2, 3, 4, 5]) // [4, 5]
+
+eager.difference([1, 2, 3, 4, 5], [0, 1, 2, 3]) // [4, 5]
 
 pl(null) // []
 pl(undefined) // []
@@ -327,11 +368,17 @@ This method is like [lz.difference](/docs/api.md#difference) except that it acce
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.differenceBy([{ x: 2 }, { x: 3 }], value => value.x)
 )
 
-pl([{ x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }]) // [{ x: 1 }, { x: 4 }]
+const data = [{ x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }]
+pl(data) // [{ x: 1 }, { x: 4 }]
+
+elz.differenceBy(data ,[{ x: 2 }, { x: 3 }], value => value.x)
+// [{ x: 1 }, { x: 4 }]
 
 pl(null) // []
 pl(undefined) // []
@@ -354,11 +401,15 @@ Iterates over elements of collection, returning an array of all elements predica
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.filter(v => v % 2 === 0)
 )
 
 pl([1, 2, 3, 4, 5, 6]) // [2, 4, 6]
+
+elz.filter([1, 2, 3, 4, 5, 6], v => v % 2 === 0) // [2, 4, 6]
 
 pl(null) // []
 pl(undefined) // []
@@ -382,11 +433,15 @@ The opposite of [lz.filter](/docs/api.md#filter); this method returns the elemen
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.reject(v => v % 2 === 0)
 )
 
 pl([1, 2, 3, 4, 5, 6]) // [1, 3, 5]
+
+elz.reject([1, 2, 3, 4, 5, 6], v => v % 2 === 0) // [1, 3, 5]
 
 pl(null) // []
 pl(undefined) // []
@@ -408,7 +463,10 @@ import lz from 'lzdash'
 
 const pl = lz.lazy(lz.compact)
 
-pl([1, 0, 3, false, 5, NaN, '', 9, null, undefined, 1]) // [1, 3, 5, 9, 1]
+const data = [1, 0, 3, false, 5, NaN, '', 9, null, undefined, 1]
+pl(data) // [1, 3, 5, 9, 1]
+
+lz.eager.compact(data) // [1, 3, 5, 9, 1]
 
 pl(null) // []
 pl(undefined) // []
@@ -433,9 +491,13 @@ Reduces running each element thru iteratee, where each successive invocation is 
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(lz.reduce((x, y) => x + y))
 
 pl([1, 2, 3, 4, 5]) // 15
+
+elz.reduce([1, 2, 3, 4, 5], (x, y) => x + y) // 15
 
 pl(null) // undefined
 pl(undefined) // undefined
@@ -458,11 +520,15 @@ Takes `n` elements from the beginning and stop pipeline evaluation.
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.take(3)
 )
 
 pl([1, 2, 3, 4, 5]) // [1, 2, 3] - requires only 3 iterations
+
+elz.take([1, 2, 3, 4, 5], 3) // [1, 2, 3] - requires only 3 iterations
 
 pl(null) // []
 pl(undefined) // []
@@ -485,11 +551,15 @@ Takes elements from the beginning and stop pipeline evaluation if predicate func
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.takeWhile(v => v < 3)
 )
 
 pl([1, 2, 3, 4, 5]) // [1, 2] - requires only 2 iterations
+
+elz.takeWhile([1, 2, 3, 4, 5], v => v < 3) // [1, 2] - requires only 2 iterations
 
 pl(null) // []
 pl(undefined) // []
@@ -512,11 +582,15 @@ Drop first `n` elements from the beginning.
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.drop(3)
 )
 
 pl([1, 2, 3, 4, 5]) // [4, 5]
+
+elz.drop([1, 2, 3, 4, 5], 3) // [4, 5]
 
 pl(null) // []
 pl(undefined) // []
@@ -539,11 +613,15 @@ Drops elements from the beginning and retursn elements after predicate function 
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.dropWhile(v => v < 3)
 )
 
 pl([1, 2, 3, 4, 5]) // [3, 4, 5]
+
+elz.dropWhile([1, 2, 3, 4, 5], v => v < 3) // [3, 4, 5]
 
 pl(null) // []
 pl(undefined) // []
@@ -563,11 +641,15 @@ Drops duplicates from flow, using strict equality, in which only the first occur
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.uniq(v => v < 3)
 )
 
 pl([1, 2, 3, 2, 1, 4]) // [1, 2, 3, 4]
+
+elz.uniq([1, 2, 3, 2, 1, 4], v => v < 3) // [1, 2, 3, 4]
 
 pl(null) // []
 pl(undefined) // []
@@ -590,6 +672,8 @@ This method is like [lz.uniq](/docs/api.md#uniq) except that it accepts iteratee
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.uniqBy(item => item.name)
 )
@@ -600,6 +684,13 @@ pl([
   { name: 'Sam' },
   { name: 'Raul' },
 ]) // [{ name: 'Sam' }, { name: 'Mary' }, { name: 'Raul' }]
+
+elz.uniqBy([
+  { name: 'Sam' },
+  { name: 'Mary' },
+  { name: 'Sam' },
+  { name: 'Raul' },
+], item => item.name) // [{ name: 'Sam' }, { name: 'Mary' }, { name: 'Raul' }]
 
 pl(null) // []
 pl(undefined) // []
@@ -622,11 +713,15 @@ Splits flow's elements into groups the length of size. If array can't be split e
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const pl = lz.lazy(
   lz.chunk(2)
 )
 
 pl([1, 2, 3, 4, 5]) // [[1, 2], [3, 4], [5]]
+
+elz.chunk([1, 2, 3, 4, 5], 2) // [[1, 2], [3, 4], [5]]
 
 pl(null) // []
 pl(undefined) // []
@@ -649,6 +744,8 @@ Creates grouped elements, the first of which contains the first elements of the 
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const indexSource = lz.range(0) // creates an infinite repeater starts from 0 and goes to Infinity
 const withIndicies = lz.zip(indexSource)
 
@@ -657,6 +754,8 @@ const pl = lz.lazy(
 )
 
 pl([1, 2, 3, 4, 5]) // [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]]
+
+elz.zip([1, 2, 3, 4, 5], withIndicies) // [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]]
 
 const pl1 = lz.lazy(
   withIndicies,
@@ -690,6 +789,8 @@ This method is like [lz.zip](/docs/api.md#zip) except that it accepts iteratee t
 ```javascript
 import lz from 'lzdash'
 
+const elz = lz.eager
+
 const indexSource = lz.repeat(0) // creates an infinite repeater starts from 0 and goes to Infinity
 
 const pl = lz.lazy(
@@ -697,6 +798,8 @@ const pl = lz.lazy(
 )
 
 pl([1, 2, 3, 4, 5]) // [1, 1, 1, 1, 1]
+
+elz.zipWith([1, 2, 3, 4, 5], indexSource, ((value, index) => value - index)) // [1, 1, 1, 1, 1]
 ```
 ---
 ### **Group By**
@@ -726,6 +829,21 @@ pl([
   { key: 'b', name: 'ruby' },
   { key: 'c', name: 'silversight' },
 ])
+/*
+{
+  a: [{ key: 'a', name: 'java' }, { key: 'a', name: 'c++' }],
+  b: [{ key: 'b', name: 'ruby' }],
+  c: [{ key: 'c' }, { name: 'silversight' }]
+}
+*/
+
+
+lz.eager.groupBy([
+  { key: 'a', name: 'java' },
+  { key: 'a', name: 'c++' },
+  { key: 'b', name: 'ruby' },
+  { key: 'c', name: 'silversight' },
+], (item) => item.key)
 /*
 {
   a: [{ key: 'a', name: 'java' }, { key: 'a', name: 'c++' }],
@@ -769,6 +887,20 @@ pl([
   c: 1
 }
 */
+
+lz.eager.countBy([
+  { key: 'a', name: 'java' },
+  { key: 'a', name: 'c++' },
+  { key: 'b', name: 'ruby' },
+  { key: 'c', name: 'silversight' },
+], (item) => item.key)
+/*
+{
+  a: 2,
+  b: 1,
+  c: 1
+}
+*/
 ```
 ---
 ### **Keys**
@@ -788,6 +920,8 @@ import lz from 'lzdash'
 const pl = lz.lazy(lz.keys)
 
 pl({ a: 1, b: 2, c: 3 }) // ['a', 'b', 'c']
+
+lz.eager.keys({ a: 1, b: 2, c: 3 }) // ['a', 'b', 'c']
 ```
 ---
 ### **Values**
@@ -807,6 +941,8 @@ import lz from 'lzdash'
 const pl = lz.lazy(lz.values)
 
 pl({ a: 1, b: 2, c: 3 }) // [1, 2, 3]
+
+lz.eager.values({ a: 1, b: 2, c: 3 }) // [1, 2, 3]
 ```
 ---
 ### **Entries**
@@ -826,6 +962,8 @@ import lz from 'lzdash'
 const pl = lz.lazy(lz.entries)
 
 pl({ a: 1, b: 2, c: 3 }) // [['a', 1], ['b', 2], ['c', 3]]
+
+lz.eager.entries({ a: 1, b: 2, c: 3 }) // [['a', 1], ['b', 2], ['c', 3]]
 ```
 ---
 ### **From Pairs**
@@ -849,6 +987,9 @@ const pl = lz.lazy(
 )
 
 pl({ a: 1, b: 2, c: 3 }) // { a: 2, b: 4, c: 6 }
+
+lz.eager.fromPairs([['hello', 'world']]) 
+// { hello: 'world' }
 
 
 const pl1 = lz.lazy(lz.fromPairs)

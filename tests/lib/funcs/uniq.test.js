@@ -1,5 +1,6 @@
 import { lazy } from '../../../lib/lazy'
 import * as uniqFuncs from '../../../lib/funcs/uniq'
+import eager from '../../../lib/eager'
 
 const { uniq, uniqBy } = uniqFuncs
 
@@ -14,6 +15,8 @@ describe('Test Uniq funcs set', () => {
     expect(lz([1, 1, 2, 3, 3, 4, 4, 5, 3, 1, 2, 6])).toEqual([1, 2, 3, 4, 5, 6])
     expect(lz([1, 1, 2, 3, 3, 4, 4, 5, 3, 1, 2, 6])).toEqual([1, 2, 3, 4, 5, 6])
 
+    expect(eager.uniq([1, 1, 2, 3, 3, 4, 4, 5, 3, 1, 2, 6])).toEqual([1, 2, 3, 4, 5, 6])
+
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
     expect(lz({})).toEqual([])
@@ -26,6 +29,17 @@ describe('Test Uniq funcs set', () => {
     const lz = lazy(uniqBy(obj => obj.x))
 
     expect(lz([1, 1, 2, 3, 3, 4, 4, 5, 3, 1, 2, 6].map(x => ({ x })))).toEqual([
+      { x: 1 },
+      { x: 2 },
+      { x: 3 },
+      { x: 4 },
+      { x: 5 },
+      { x: 6 },
+    ])
+
+    expect(eager.uniqBy(
+      [1, 1, 2, 3, 3, 4, 4, 5, 3, 1, 2, 6].map(x => ({ x })), obj => obj.x
+    )).toEqual([
       { x: 1 },
       { x: 2 },
       { x: 3 },

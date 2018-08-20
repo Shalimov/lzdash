@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as fromFuncs from '../../../lib/funcs/from'
 
@@ -12,6 +13,11 @@ describe('Test From funcs set', () => {
     const lz = lazy(fromPairs)
 
     expect(lz([['__1', 1], ['__2', 2]])).toEqual({
+      __1: 1,
+      __2: 2,
+    })
+
+    expect(eager.fromPairs([['__1', 1], ['__2', 2]])).toEqual({
       __1: 1,
       __2: 2,
     })

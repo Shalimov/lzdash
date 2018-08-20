@@ -1,3 +1,4 @@
+import eager from '../../../lib/eager'
 import { lazy } from '../../../lib/lazy'
 import * as differenceFuncs from '../../../lib/funcs/difference'
 
@@ -13,6 +14,8 @@ describe('Test Difference funcs set', () => {
 
     expect(lz([2, 3, 4, 5, 6, 7])).toEqual([5, 6, 7])
 
+    expect(eager.difference([2, 3, 4, 5, 6, 7], [1, 2, 3, 4])).toEqual([5, 6, 7])
+
     expect(lz([])).toEqual([])
     expect(lz({})).toEqual([])
     expect(lz()).toEqual([])
@@ -25,6 +28,9 @@ describe('Test Difference funcs set', () => {
     const lz = lazy(differenceBy([{ x: 1 }, { x: 2 }], ({ x }) => x))
 
     expect(lz([{ x: 1 }, { x: 3 }, { x: 4 }])).toEqual([{ x: 3 }, { x: 4 }])
+
+    expect(eager.differenceBy([{ x: 1 }, { x: 3 }, { x: 4 }], [{ x: 1 }, { x: 2 }], ({ x }) => x))
+      .toEqual([{ x: 3 }, { x: 4 }])
 
     expect(lz([])).toEqual([])
     expect(lz({})).toEqual([])
