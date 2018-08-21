@@ -154,10 +154,9 @@ const lzReduce1 = lz.lazy(
   lz.map(afterReduce => afterReduce) // yep that's possible
 )
 
-// pls note, that map gives all intermediate results
+// pls note, that map takes all intermediate results
 // from reduce work, cuz reduce obey the rules
 // of lazy evaluation and produce one result per iteration
-1, 4, 9
 lzReduce1([1, 2, 3]) // [1, 5, 14]
 
 ```
@@ -182,10 +181,14 @@ fn({ a: 1, b: 2 }) // ['key:a', 'key:b']
 
 
 const fnKeys = lz.lazy(
-  lz.map(v => v)
+  lz.map(v => v) // actually we can remove it and it will work the same.
   lz.keys,
   lz.map(key => `_${key}_`)
 )
+
+// lz.lazy(lz.keys, lz.map(key => `_${key}_`)) almost the same as code example above
+// but diff is in case if `keys` is leading func u can pass object to fnKeys
+// otherwise it should be an array
 
 const data = [
   { a: 1, b: 2 },
