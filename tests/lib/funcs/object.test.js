@@ -6,7 +6,7 @@ const { keys, values, entries } = objFuncs
 
 describe('Test Object funcs set', () => {
   test('set should have four functions', () => {
-    expect(Object.keys(objFuncs)).toEqual(['keys', 'values', 'entries', 'isObject'])
+    expect(Object.keys(objFuncs)).toEqual(['keys', 'values', 'entries'])
   })
 
   describe('#keys tests', () => {
