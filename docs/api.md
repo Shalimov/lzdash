@@ -910,6 +910,8 @@ lz.eager.countBy([
 
 Creates flow based on passed object's keys to pass it down thru pipeline
 
+__NB:__ Can be used as source as well (look at the example below)
+
 **Returns:** 
 - Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
 
@@ -922,6 +924,8 @@ const pl = lz.lazy(lz.keys)
 pl({ a: 1, b: 2, c: 3 }) // ['a', 'b', 'c']
 
 lz.eager.keys({ a: 1, b: 2, c: 3 }) // ['a', 'b', 'c']
+
+lz.eager.map(lz.keys({ a: 1, b: 2 }), v => v) // ['a', 'b']
 ```
 ---
 ### **Values**
@@ -929,7 +933,9 @@ lz.eager.keys({ a: 1, b: 2, c: 3 }) // ['a', 'b', 'c']
 
 `lz.values`
 
-Creates flow based on passed object's values to pass it down thru pipeline
+Creates flow based on passed object's values to pass it down thru pipeline.
+
+__NB:__ Can be used as source as well (look at the example below)
 
 **Returns:** 
 - Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
@@ -943,6 +949,9 @@ const pl = lz.lazy(lz.values)
 pl({ a: 1, b: 2, c: 3 }) // [1, 2, 3]
 
 lz.eager.values({ a: 1, b: 2, c: 3 }) // [1, 2, 3]
+
+lz.eager.map(lz.values({ a: 1, b: 2 }), v => v) // [1, 2]
+
 ```
 ---
 ### **Entries**
@@ -951,6 +960,8 @@ lz.eager.values({ a: 1, b: 2, c: 3 }) // [1, 2, 3]
 `lz.entries`
 
 Creates flow based on passed object's [key, value] entries to pass it down thru pipeline
+
+__NB:__ Can be used as source as well (look at the example below)
 
 **Returns:** 
 - Function - that should be consumed by [lz.lazy](/docs/api.md#lazy) | [lz.lazySource](/docs/api.md#lazySource) 
@@ -964,6 +975,9 @@ const pl = lz.lazy(lz.entries)
 pl({ a: 1, b: 2, c: 3 }) // [['a', 1], ['b', 2], ['c', 3]]
 
 lz.eager.entries({ a: 1, b: 2, c: 3 }) // [['a', 1], ['b', 2], ['c', 3]]
+
+lz.eager.map(lz.entries({ a: 1, b: 2 }), v => v) // [['a', 1], ['b', 2]]
+
 ```
 ---
 ### **From Pairs**

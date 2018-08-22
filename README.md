@@ -1,4 +1,4 @@
-# Lazy non-strict evaluation in JS subset of lodash/fp functions to work with collections effectively
+# Lazy non-strict evaluation in JS; Subset of lodash/fp functions to work with collections effectively
 
 **lzdash** is a functional utility library for JavaScript, contains subset of Lodash functions (api similar to lodash/fp), but with a lazy engine under the hood that strives to do as little work as possible while being as flexible as possible.
 

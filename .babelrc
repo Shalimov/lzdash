@@ -15,7 +15,6 @@
     "jest"
   ],
   "plugins": [
-    "transform-runtime"
   ]
 }
 

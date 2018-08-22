@@ -18,6 +18,9 @@ describe('Test Object funcs set', () => {
 
       expect(eager.keys({ a: 1, b: 2, c: 3, d: 4 })).toEqual(['a', 'b', 'c', 'd'])
 
+      // Use as source
+      expect(eager.map(keys({ a: 1, b: 2 }), v => v)).toEqual(['a', 'b'])
+
       expect(lz({})).toEqual([])
       expect(lz()).toEqual([])
       expect(lz(1)).toEqual([])
@@ -47,6 +50,9 @@ describe('Test Object funcs set', () => {
 
     expect(eager.values({ a: 1, b: 2, c: 3, d: 4 })).toEqual([1, 2, 3, 4])
 
+    // Use as source
+    expect(eager.map(values({ a: 1, b: 2 }), v => v)).toEqual([1, 2])
+
     expect(lz({})).toEqual([])
     expect(lz()).toEqual([])
     expect(lz(1)).toEqual([])
@@ -62,6 +68,9 @@ describe('Test Object funcs set', () => {
     expect(lz({ a: 1, b: 2, c: 3, d: 4 })).toEqual([['a', 1], ['b', 2], ['c', 3], ['d', 4]])
 
     expect(eager.entries({ a: 1, b: 2, c: 3, d: 4 })).toEqual([['a', 1], ['b', 2], ['c', 3], ['d', 4]])
+
+    // Use as source
+    expect(eager.map(entries({ a: 1, b: 2 }), v => v)).toEqual([['a', 1], ['b', 2]])
 
     expect(lz({})).toEqual([])
     expect(lz()).toEqual([])
