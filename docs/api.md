@@ -1079,7 +1079,7 @@ const pl = lz.lazy(lz.take(5))
 pl(lz.repeat('hi')) // ['hi', 'hi', 'hi', 'hi', 'hi']
 
 const pl1 = lz.lazy(
-  lz.zip(lz.range('abc'))
+  lz.zip(lz.range('abc')),
   lz.take(3)
 )
 
@@ -1110,7 +1110,7 @@ const pl = lz.lazy(lz.take(5))
 pl(lz.generator(Math.random)) // five random numbers
 
 const pl1 = lz.lazy(
-  lz.zip(lz.generator(() => 'abc'), 2)
+  lz.zip(lz.generator(() => 'abc'), 2),
   lz.take(3)
 )
 
