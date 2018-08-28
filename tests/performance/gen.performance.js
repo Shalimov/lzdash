@@ -1,18 +1,44 @@
 /* eslint-disable */
 
-const fp = require('lodash/fp')
-const lz = require('../dist/dist')
+const fs = require('fs-extra')
+const { plans } = require('./plans')
 
-const noop = () => { }
+const lib = process.argv[2]
+const funcPlan = plans[lib]
 
-const meter = ({ run, beforeRun = noop, afterRun = noop }) => {
-  const brresult = beforeRun()
+if (!funcPlan) {
+  throw new Error('plan is incorrect ' + lib)
+}
 
+const meter = (fn, arg) => {
   const start = process.hrtime.bigint()
-  const result = run(brresult)
+  const result = fn(arg)
   const end = process.hrtime.bigint()
 
-  afterRun(result)
+  // console.log(result.length)
 
-  return `${Number(end - start) / 10 ** 9} sec.`
+  return Number(end - start) / 10 ** 9
 }
+
+const report = () => {
+  const reps = []
+
+  for (let [libf, op, simpleValueSets] of funcPlan) {
+    const reportMap = {
+      [op]: {}
+    }
+
+    for (let values of simpleValueSets) {
+      const libft = meter(libf, values)
+
+      reportMap[op][`${values.length} set`] = libft
+    }
+
+    reps.push(reportMap)
+  }
+
+  return reps
+}
+
+fs.writeJson(`./tests/reports/${lib}.json`, report())
+  .then(() => process.exit(0), () => process.exit(0))

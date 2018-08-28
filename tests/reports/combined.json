@@ -1,0 +1,204 @@
+[
+  {
+    "[filter(v % 2) -> map(v * v) -> reduce(x + y)]": {
+      "10 set": {
+        "lodash/fp": "0.000657657 sec.",
+        "lzdash": "0.000235095 sec.",
+        "fastest": "lzdash fastest x2.7974095578383205"
+      },
+      "50 set": {
+        "lodash/fp": "0.000065281 sec.",
+        "lzdash": "0.000022566 sec.",
+        "fastest": "lzdash fastest x2.892891961357795"
+      },
+      "100 set": {
+        "lodash/fp": "0.000030036 sec.",
+        "lzdash": "0.000029684 sec.",
+        "fastest": "lzdash fastest x1.0118582401293625"
+      },
+      "500 set": {
+        "lodash/fp": "0.000080456 sec.",
+        "lzdash": "0.000132952 sec.",
+        "fastest": "lodash/fp fastest x1.6524808591031124"
+      },
+      "1000 set": {
+        "lodash/fp": "0.000148219 sec.",
+        "lzdash": "0.000303546 sec.",
+        "fastest": "lodash/fp fastest x2.0479560650119084"
+      },
+      "5000 set": {
+        "lodash/fp": "0.000696707 sec.",
+        "lzdash": "0.001550046 sec.",
+        "fastest": "lodash/fp fastest x2.224817606253418"
+      },
+      "10000 set": {
+        "lodash/fp": "0.003108665 sec.",
+        "lzdash": "0.001638493 sec.",
+        "fastest": "lzdash fastest x1.8972708458321152"
+      },
+      "50000 set": {
+        "lodash/fp": "0.004730048 sec.",
+        "lzdash": "0.00202368 sec.",
+        "fastest": "lzdash fastest x2.337349778621126"
+      },
+      "100000 set": {
+        "lodash/fp": "0.005074682 sec.",
+        "lzdash": "0.002932051 sec.",
+        "fastest": "lzdash fastest x1.7307618455477067"
+      },
+      "500000 set": {
+        "lodash/fp": "0.035248913 sec.",
+        "lzdash": "0.01271876 sec.",
+        "fastest": "lzdash fastest x2.7714111281288427"
+      },
+      "1000000 set": {
+        "lodash/fp": "0.107018335 sec.",
+        "lzdash": "0.026902248 sec.",
+        "fastest": "lzdash fastest x3.978044325515102"
+      },
+      "5000000 set": {
+        "lodash/fp": "0.576056988 sec.",
+        "lzdash": "0.161446172 sec.",
+        "fastest": "lzdash fastest x3.568105585061503"
+      },
+      "10000000 set": {
+        "lodash/fp": "1.957716339 sec.",
+        "lzdash": "0.323082606 sec.",
+        "fastest": "lzdash fastest x6.059491605685514"
+      }
+    }
+  },
+  {
+    "[reject(v % 2) -> map(v * 3) -> take(100)]": {
+      "10 set": {
+        "lodash/fp": "0.00021402 sec.",
+        "lzdash": "0.000181662 sec.",
+        "fastest": "lzdash fastest x1.1781220068038445"
+      },
+      "50 set": {
+        "lodash/fp": "0.000045111 sec.",
+        "lzdash": "0.000013783 sec.",
+        "fastest": "lzdash fastest x3.2729449321628095"
+      },
+      "100 set": {
+        "lodash/fp": "0.000031983 sec.",
+        "lzdash": "0.000017273 sec.",
+        "fastest": "lzdash fastest x1.851618132345279"
+      },
+      "500 set": {
+        "lodash/fp": "0.00009404 sec.",
+        "lzdash": "0.00003149 sec.",
+        "fastest": "lzdash fastest x2.9863448713877423"
+      },
+      "1000 set": {
+        "lodash/fp": "0.000062283 sec.",
+        "lzdash": "0.000032552 sec.",
+        "fastest": "lzdash fastest x1.9133386581469647"
+      },
+      "5000 set": {
+        "lodash/fp": "0.000060924 sec.",
+        "lzdash": "0.000031236 sec.",
+        "fastest": "lzdash fastest x1.950441797925471"
+      },
+      "10000 set": {
+        "lodash/fp": "0.000059234 sec.",
+        "lzdash": "0.000030601 sec.",
+        "fastest": "lzdash fastest x1.9356883761968564"
+      },
+      "50000 set": {
+        "lodash/fp": "0.000062079 sec.",
+        "lzdash": "0.00003118 sec.",
+        "fastest": "lzdash fastest x1.9909878127004488"
+      },
+      "100000 set": {
+        "lodash/fp": "0.000060218 sec.",
+        "lzdash": "0.000033095 sec.",
+        "fastest": "lzdash fastest x1.8195497809336756"
+      },
+      "500000 set": {
+        "lodash/fp": "0.000060379 sec.",
+        "lzdash": "0.000031251 sec.",
+        "fastest": "lzdash fastest x1.9320661738824356"
+      },
+      "1000000 set": {
+        "lodash/fp": "0.000058696 sec.",
+        "lzdash": "0.000031219 sec.",
+        "fastest": "lzdash fastest x1.8801370959992312"
+      },
+      "5000000 set": {
+        "lodash/fp": "0.000059698 sec.",
+        "lzdash": "0.000031935 sec.",
+        "fastest": "lzdash fastest x1.8693596367621732"
+      },
+      "10000000 set": {
+        "lodash/fp": "0.00006004 sec.",
+        "lzdash": "0.000030841 sec.",
+        "fastest": "lzdash fastest x1.946759184202847"
+      }
+    }
+  },
+  {
+    "[values, reduce(x + y)]": {
+      "10 set": {
+        "lodash/fp": "0.000737799 sec.",
+        "lzdash": "0.000331782 sec.",
+        "fastest": "lzdash fastest x2.223746315351647"
+      },
+      "50 set": {
+        "lodash/fp": "0.000067203 sec.",
+        "lzdash": "0.000043305 sec.",
+        "fastest": "lzdash fastest x1.5518531347419466"
+      },
+      "100 set": {
+        "lodash/fp": "0.000080286 sec.",
+        "lzdash": "0.000094802 sec.",
+        "fastest": "lodash/fp fastest x1.180803627033356"
+      },
+      "500 set": {
+        "lodash/fp": "0.000299972 sec.",
+        "lzdash": "0.0003345 sec.",
+        "fastest": "lodash/fp fastest x1.115104076380462"
+      },
+      "1000 set": {
+        "lodash/fp": "0.000567706 sec.",
+        "lzdash": "0.000843114 sec.",
+        "fastest": "lodash/fp fastest x1.4851243425294078"
+      },
+      "5000 set": {
+        "lodash/fp": "0.003101146 sec.",
+        "lzdash": "0.003544642 sec.",
+        "fastest": "lodash/fp fastest x1.143010358106326"
+      },
+      "10000 set": {
+        "lodash/fp": "0.006903756 sec.",
+        "lzdash": "0.001268271 sec.",
+        "fastest": "lzdash fastest x5.4434391387960455"
+      },
+      "50000 set": {
+        "lodash/fp": "0.017618636 sec.",
+        "lzdash": "0.005740391 sec.",
+        "fastest": "lzdash fastest x3.069239708584311"
+      },
+      "100000 set": {
+        "lodash/fp": "0.038989091 sec.",
+        "lzdash": "0.011153054 sec.",
+        "fastest": "lzdash fastest x3.495821951547979"
+      },
+      "500000 set": {
+        "lodash/fp": "0.227868499 sec.",
+        "lzdash": "0.065145195 sec.",
+        "fastest": "lzdash fastest x3.4978558126965464"
+      },
+      "1000000 set": {
+        "lodash/fp": "0.487014146 sec.",
+        "lzdash": "0.125446431 sec.",
+        "fastest": "lzdash fastest x3.8822479214255208"
+      },
+      "5000000 set": {
+        "lodash/fp": "3.357751416 sec.",
+        "lzdash": "0.640485053 sec.",
+        "fastest": "lzdash fastest x5.242513311235696"
+      }
+    }
+  }
+]
