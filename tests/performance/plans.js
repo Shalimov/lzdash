@@ -49,6 +49,11 @@ const plans = {
       '[values, reduce(x + y)]',
       simpleObjectSets,
     ],
+    [
+      lz.lazy(lz.values, lz.reject(v => v % 2 === 0), lz.reduce((x, y) => x + y, 0)),
+      '[values, reject(v % 2), reduce(x + y)]',
+      simpleObjectSets,
+    ],
   ],
   lodash: [
     [
@@ -64,6 +69,11 @@ const plans = {
     [
       fp.flow(fp.values, fp.reduce((x, y) => x + y, 0)),
       '[values, reduce(x + y)]',
+      simpleObjectSets,
+    ],
+    [
+      fp.flow(fp.values, fp.reject(v => v % 2 === 0), fp.reduce((x, y) => x + y, 0)),
+      '[values, reject(v % 2), reduce(x + y)]',
       simpleObjectSets,
     ],
   ],
